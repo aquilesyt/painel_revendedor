@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Revendedor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="particles-js"></canvas>
+
+  <div class="painel">
+    <h1>Bem-vindo ao Painel</h1>
+    <p id="user-nome">Carregando dados...</p>
+
+    <button id="btnTabelaIOS">Tabela iOS</button>
+    <div id="tabelaIOS" class="oculto">
+      <!-- Conteúdo da tabela XIT iOS vai aqui futuramente -->
+      <p>Valores de XIT para iOS em breve.</p>
+    </div>
+
+    <button id="btnSair">Sair</button>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("auth_token")
+    if (!token) window.location.href = "/login.html"
+
+    document.getElementById("btnTabelaIOS").addEventListener("click", () => {
+      document.getElementById("tabelaIOS").classList.toggle("oculto")
+    })
+
+    document.getElementById("btnSair").addEventListener("click", () => {
+      localStorage.removeItem("auth_token")
+      window.location.href = "/login.html"
+    })
+
+    // Exemplo de como buscar nome do revendedor logado
+    fetch("https://meu-backend-site.onrender.com/api/user", {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("user-nome").textContent = `Revendedor: ${data.nome}`
+    })
+    .catch(() => {
+      document.getElementById("user-nome").textContent = "Erro ao carregar."
+    })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80 },
+        "color": { "value": "#ff0000" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3 },
+        "move": { "enable": true, "speed": 2 }
+      },
+      "interactivity": {
+        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+      }
+    })
+  </script>
+</body>
+</html>
