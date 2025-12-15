@@ -1,68 +1,273 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Revendedor</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AQUILES YT1</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+      z-index: 1;
+      padding: 30px 10px;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      z-index: 30;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff0000;
+    }
+
+    .side-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.95), rgba(10, 10, 10, 0.9));
+      padding: 20px;
+      transform: translateX(-100%);
+      transition: transform 0.4s ease-in-out;
+      z-index: 29;
+      box-shadow: 3px 0 15px #000;
+    }
+
+    .side-panel.show {
+      transform: translateX(0);
+    }
+
+    .side-panel a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 40px;
+      padding: 12px;
+      background: linear-gradient(135deg, #00c3ff, #0044ff);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .side-panel a:first-child {
+      margin-top: 40px;
+    }
+
+    .side-panel a:hover {
+      background-position: right center;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    .side-panel img {
+      width: 16px;
+      height: 16px;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 28;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .typed-text {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin: 10px 0 30px;
+      position: relative;
+      z-index: 2;
+      min-height: 30px;
+    }
+
+    .circle-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid crimson;
+      margin: 20px auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .circle-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 300px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .links a {
+      padding: 14px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff0000, #990000);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ff0000aa;
+      transition: all 0.4s ease;
+      background-size: 200% 200%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .links a:hover {
+      background-position: right center;
+      box-shadow: 0 0 25px #ff0000, 0 0 40px #ff5555;
+      transform: scale(1.05);
+    }
+
+    .links img {
+      width: 20px;
+      height: 20px;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+      animation: neon-glow 2s infinite alternate;
+    }
+
+    @keyframes neon-glow {
+      0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+      100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+    }
+  </style>
 </head>
 <body>
-  <canvas id="particles-js"></canvas>
 
-  <div class="painel">
-    <h1>Bem-vindo ao Painel</h1>
-    <p id="user-nome">Carregando dados...</p>
-
-    <button id="btnTabelaIOS">Tabela iOS</button>
-    <div id="tabelaIOS" class="oculto">
-      <!-- Conteúdo da tabela XIT iOS vai aqui futuramente -->
-      <p>Valores de XIT para iOS em breve.</p>
-    </div>
-
-    <button id="btnSair">Sair</button>
+  <!-- Menu Lateral -->
+  <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+  <div class="side-panel" id="sidePanel">
+    <a href="suporte.html">SUPORTE/DUVIDAS?</a>
+    <a href="https://www.youtube.com/@aquiles_YT1" target="_blank"><img src="youtube-icon.png" alt="">CANAL OFICIAL</a>
+    <a href="register.html" target="_blank">🚀 VIRE REVENDEDOR</a>
   </div>
 
-  <script>
-    const token = localStorage.getItem("auth_token")
-    if (!token) window.location.href = "/login.html"
+  <!-- Overlay -->
+  <div id="overlay" onclick="closeMenu()"></div>
 
-    document.getElementById("btnTabelaIOS").addEventListener("click", () => {
-      document.getElementById("tabelaIOS").classList.toggle("oculto")
-    })
+  <!-- Fundo com partículas -->
+  <div id="particles-js"></div>
 
-    document.getElementById("btnSair").addEventListener("click", () => {
-      localStorage.removeItem("auth_token")
-      window.location.href = "/login.html"
-    })
+  <!-- Conteúdo principal -->
+  <h1>BEM VINDO AO SITE</h1>
+  <div class="typed-text" id="typed-text"></div>
 
-    // Exemplo de como buscar nome do revendedor logado
-    fetch("https://meu-backend-site.onrender.com/api/user", {
-      headers: { "Authorization": `Bearer ${token}` }
-    })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("user-nome").textContent = `Revendedor: ${data.nome}`
-    })
-    .catch(() => {
-      document.getElementById("user-nome").textContent = "Erro ao carregar."
-    })
-  </script>
+  <div class="circle-img">
+    <img src="minha-foto.png" alt="Minha Imagem" />
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <div class="links">
+    <a href="loja.html">ADQUIRA SEU XIT VIP SAFE</a>
+    <a href="xits.html">XITS GRÁTIS ATUALIZADO</a>
+    <a href="https://whatsapp.com/channel/0029Vb6t61aI7BeJQk7eHL2U/106" target="_blank">GRUPO DO WHATSAPP</a>
+    <a href="https://t.me/hckrsff" target="_blank"><img src="telegram-icon.png" alt="">CANAL DO TELEGRAM</a>
+    <a href="https://www.instagram.com/00_dimenor?igsh=MW80cGRxNThheTRjeg==" target="_blank"><img src="instagram-icon.png" alt="">SIGA-ME NO INSTAGRAM</a>
+  </div>
+
+  <footer>🔒 aquilesyt.github.io</footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script>
     particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80 },
-        "color": { "value": "#ff0000" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5 },
-        "size": { "value": 3 },
-        "move": { "enable": true, "speed": 2 }
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ff0000" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 2 }
       },
-      "interactivity": {
-        "events": { "onhover": { "enable": true, "mode": "repulse" } }
-      }
-    })
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      },
+      retina_detect: true
+    });
+
+    new Typed('#typed-text', {
+      strings: ["AQUI ESTAO OS LINKS QUE VOCE PROCURA", "OS MELHORES XITIS SO AQUI!"],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 1500,
+      loop: true
+    });
+
+    function toggleMenu() {
+      document.getElementById("sidePanel").classList.toggle("show");
+      document.getElementById("overlay").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("sidePanel").classList.remove("show");
+      document.getElementById("overlay").classList.remove("show");
+    }
   </script>
 </body>
 </html>

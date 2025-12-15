@@ -1,4 +1,4 @@
-
+// Partículas de fundo
 particlesJS("particles-js", {
   particles: {
     number: { value: 60 },
@@ -10,16 +10,19 @@ particlesJS("particles-js", {
   }
 });
 
+// Mostrar/ocultar tabela de preços
 function toggleTabela() {
   const tabela = document.getElementById("tabelaIOS");
   tabela.style.display = tabela.style.display === "none" ? "block" : "none";
 }
 
+// Salvar chave PIX
 function salvarPix() {
   const chave = document.getElementById("chavePix").value;
   alert("Chave Pix salva: " + chave);
 }
 
+// Solicitar saque
 function solicitarSaque() {
   alert("Solicitação de saque enviada com sucesso!");
 }

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Revendedor</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(20, 20, 20, 0.85);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      box-shadow: 0 0 15px rgba(255,0,0,0.3);
+    }
+
+    .btn-roxo, .btn-vermelho {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn-roxo {
+      background: #6a0dad;
+      color: white;
+    }
+    .btn-roxo:hover { background: #530a9c; }
+
+    .btn-vermelho {
+      background: #cc0000;
+      color: white;
+    }
+    .btn-vermelho:hover { background: #a80000; }
+
+    /* Tabela iOS com efeito suave */
+    .tabela-ios {
+      display: none;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out;
+      text-align: left;
+    }
+    .tabela-ios.ativo {
+      display: block;
+      opacity: 1;
+      max-height: 3000px;
+    }
+    .tabela-ios ul { list-style: none; padding: 0; }
+    .tabela-ios li {
+      margin: 12px 0;
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,0,0,0.3);
+    }
+    .tabela-ios button {
+      margin-top: 5px;
+      background: #cc0000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    /* Painel de saldos */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+    @media (max-width: 800px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+    .stat {
+      background: #0f0f0f;
+      border: 1px solid rgba(255,0,0,0.25);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255,0,0,0.15) inset;
+    }
+    .stat h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .3px;
+      color: #ff4d4d;
+      text-transform: uppercase;
+    }
+    .stat .valor {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    canvas#particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles-js"></canvas>
+
+  <div class="container">
+    <h1>Bem-vindo ao Painel</h1>
+    <p id="user-nome">Carregando dados...</p>
+
+    <!-- NOVO: Painel de saldos -->
+    <div class="card">
+      <h2>Seu Resumo</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <h3>Seu Saldo Atual</h3>
+          <div id="saldoAtual" class="valor">R$ --</div>
+        </div>
+        <div class="stat">
+          <h3>Total Ganhos</h3>
+          <div id="totalGanhos" class="valor">R$ --</div>
+        </div>
+        <div class="stat">
+          <h3>Saldo Disponível p/ Saque</h3>
+          <div id="saldoDisponivel" class="valor">R$ --</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="btn-roxo" onclick="toggleTabela()">Tabela iOS</button>
+      <div id="tabelaIOS" class="tabela-ios">
+        <h3>XITS IOS ATUALIZADOS</h3>
+        <p><em>VERSÕES 12 ATE 16.6.1 — Suporte via filza</em></p>
+        <ul>
+          <li>SUA FOTO/LOGO NO CEU = 40R$ <br> Sua comissão = 15R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>UNDER CARRO = 50R$ <br> Sua comissão = 20R$ <br>
+<button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>FLY CARRO = 55R$ <br> Sua comissão = 22R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>ZE PEDRINHA = 25R$ <br> Sua comissão = 10R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>CEU PRETO = 10R$ <br> Sua comissão = 5R$ <br>
+            <button>Gerar link de pagamento</button>
+          </li>
+          <li>SOMENTE HOLO = 25R$ <br> Sua comissão = 10R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+        </ul>
+
+        <h3>IOS 16.7.1 ATE 26</h3>
+        <p><em>Suporte via icloud e imazing</em></p>
+        <ul>
+          <li>FLY CARRO = 70R$ <br> Sua comissão = 20R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>WHALLHACKER VISUAL = 55R$ <br> Mapas: Alpine, Nova terra, Kalahari, Solara — Já vem com holo <br>
+            Sua comissão = 22R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>SOMENTE HOLO = 25R$ <br> Sua comissão = 10R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>COMBO: FLY CARRO + WHALLHACKER + HOLO = 70R$ <br> Sua comissão = 20R$ <br>
+            <button>Gerar link de pagamento via QR Code</button>
+          </li>
+          <li>PERMANENTE = 180R$ <br> Direito a todos os xits disponíveis ou novos <br>
+            <em>Info: falar com o criador ofc.</em> <br>
+            <button onclick="window.open('https://wa.me/5575992078021?text=hola,%20um%20cliente%20esta%20interessado%20no%20permanente,%20como%20fazemos?','_blank')">
+              Contatar Criador
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>Chave PIX:</strong></p>
+      <input type="text" id="chavePix" placeholder="sua chave pix">
+      <button class="btn-roxo" onclick="salvarPix()">Salvar</button>
+    </div>
+
+    <div class="card">
+      <p><strong>Solicitar saque:</strong></p>
+      <button class="btn-vermelho" onclick="solicitarSaque()">Solicitar</button>
+    </div>
+
+    <button id="btnSair" class="btn-vermelho">Sair</button>
+  </div>
+
+  <!-- Partículas -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80 },
+        "color": { "value": "#ff0000" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "color": "#ff0000" },
+        "move": { "enable": true, "speed": 2 }
+      }
+    });
+
+    function toggleTabela() {
+      const tabela = document.getElementById("tabelaIOS");
+      tabela.classList.toggle("ativo");
+    }
+  </script>
+
+  <!-- Script personalizado existente -->
+  <script src="script.js"></script>
+
+  <!-- Autenticação + preenchimento de saldos -->
+  <script>
+    const token = localStorage.getItem("auth_token");
+    if (!token) window.location.href = "/login.html";
+
+    const fmtBRL = (n) => Number(n || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    fetch("https://meu-backend-site.onrender.com/api/user", {
+      headers: { "Authorization": Bearer ${token} }
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("user-nome").textContent = Revendedor: ${data.nome || "—"};
+
+      const saldo_total = Number(data.saldo_total || 0);
+      const saldo_sacado = Number(data.saldo_sacado || 0);
+      const saldo_disponivel = Number(data.saldo_disponivel || 0);
+
+      const saldo_atual = Math.max(0, saldo_total - saldo_sacado);
+document.getElementById("totalGanhos").textContent = fmtBRL(saldo_total);
+      document.getElementById("saldoDisponivel").textContent = fmtBRL(saldo_disponivel);
+      document.getElementById("saldoAtual").textContent = fmtBRL(saldo_atual);
+    })
+    .catch(() => {
+      document.getElementById("user-nome").textContent = "Erro ao carregar.";
+    });
+
+    document.getElementById("btnSair").addEventListener("click", () => {
+      localStorage.removeItem("auth_token");
+      window.location.href = "/login.html";
+    });
+  </script>
+</body>
+</html>

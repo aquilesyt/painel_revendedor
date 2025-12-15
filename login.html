@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - XIT VIP</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 350px;
+      margin: 80px auto;
+      background-color: #111;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00c3ff88;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #00c3ff;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: #fff;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00c3ff, #0044ff);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background-position: right center;
+      transform: scale(1.05);
+    }
+    .link {
+      margin-top: 20px;
+      display: block;
+      font-size: 0.9rem;
+      color: #00c3ff;
+      text-decoration: none;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" data-aos="zoom-in">
+    <h1>Login</h1>
+    <input type="text" placeholder="Nome de usuário" required />
+    <input type="password" placeholder="Digite sua senha" required />
+    <input type="text" placeholder="Digite a key de acesso" required />
+    <button>Entrar</button>
+
+    <a href="register.html" class="link">Não tem uma conta? Registrar conta</a>
+    <a href="https://wa.me/5575992078021?text=Hola!%20quero%20adquirir%20uma%20key%20de%20acesso" class="link" target="_blank">Não possui uma key? Adquira sua key de acesso</a>
+    <a href="index.html" class="link">⬅️ Voltar ao início</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
