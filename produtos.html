@@ -163,18 +163,36 @@ function openModal(type){
   plansContainer.innerHTML='';
   contactArea.style.display='none';
 
-  PLANS[type].forEach(x=>{
-    let div=document.createElement('div');
-    div.className='plan';
-    div.innerHTML=`<div><div class="title">${x.d}</div><div class="price">${x.p}</div></div><button class="buy">Adquirir</button>`;
-    div.querySelector('.buy').onclick=()=>{
-      const msg=encodeURIComponent(`Hola, vim pelo site e quero o plano ${x.d} (${modalTitle.textContent}).`);
-      waBtn.href=`https://wa.me/${WA}?text=${msg}`;
-      tgBtn.href=`https://t.me/${TG}?text=${msg}`;
-      contactArea.style.display='block';
-    };
-    plansContainer.appendChild(div);
-  });
+  plansContainer.innerHTML = '';
+contactArea.style.display = 'none';
+
+PLANS[type].forEach(x => {
+  const div = document.createElement('div');
+  div.className = 'plan';
+  div.innerHTML = `
+    <div>
+      <div class="title">${x.d}</div>
+      <div class="price">${x.p}</div>
+    </div>
+    <button class="buy" data-plan="${x.d}">Adquirir</button>
+  `;
+  plansContainer.appendChild(div);
+});
+
+/* EVENTO ÚNICO (delegação) */
+plansContainer.onclick = (e) => {
+  if (!e.target.classList.contains('buy')) return;
+
+  const plan = e.target.dataset.plan;
+  const msg = encodeURIComponent(
+    `Hola, vim pelo site e quero o plano ${plan} (${modalTitle.textContent}).`
+  );
+
+  waBtn.href = `https://wa.me/${WA}?text=${msg}`;
+  tgBtn.href = `https://t.me/${TG}?text=${msg}`;
+  contactArea.style.display = 'block';
+};
+
 }
 
 function closeModal(){modalBack.style.display='none';}
