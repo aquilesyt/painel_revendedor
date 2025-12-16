@@ -101,7 +101,7 @@
 <!-- CARROSSEL FF -->
 <div class="carousel-container">
   <div class="carousel" id="carousel2">
-    <img src="images/produtos/ff1.jpg" class="active">
+    <img src="images/produtos/ff1.png" class="active">
     <img src="images/produtos/ff2.jpg">
     <img src="images/produtos/ff3.jpg">
     <img src="images/produtos/ff4.jpg">
@@ -120,6 +120,12 @@
     <img src="images/br.png">
     <h3>BR MODS RAGE — PC</h3>
     <button class="btn-open" data-type="RAGE">Ver Planos</button>
+  </div>
+
+   <div class="main-card" data-type="BYPASS">
+    <img src="images/br.png">
+    <h3>BR MODS RAGE + BYPASS PC</h3>
+    <button class="btn-open" data-type="BYPASS">Ver Planos</button>
   </div>
 </section>
 
@@ -149,6 +155,7 @@ const PLANS={
   ROOT:[{d:'1 DIA',p:'R$ 13,50'},{d:'7 DIAS',p:'R$ 36,00'},{d:'30 DIAS',p:'R$ 72,00'}],
   BRMODS:[{d:'1 DIA',p:'R$ 10,00'},{d:'15 DIAS',p:'R$ 30,00'},{d:'30 DIAS',p:'R$ 40,00'}],
   RAGE:[{d:'1 DIA',p:'R$ 10,00'},{d:'10 DIAS',p:'R$ 50,00'},{d:'30 DIAS',p:'R$ 100,00'}],
+  BYPASS:[{d:'1 DIA',p:'R$ 15,00'},{d:'10 DIAS',p:'R$ 70,00'},{d:'30 DIAS',p:'R$ 150,00'}],
 };
 const WA='5571999775415', TG='six6nine94';
 
@@ -159,6 +166,7 @@ function openModal(type){
     type==='ROOT'?'DRIP CLIENTE — ROOT':
     type==='BRMODS'?'BR MODS - ROOT':
     type==='RAGE'?'BR MODS RAGE - PC':
+    type==='BYPASS'?'BR MODS RAGE + BYPASS PC':
 
   plansContainer.innerHTML='';
   contactArea.style.display='none';

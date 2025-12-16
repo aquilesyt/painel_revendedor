@@ -100,6 +100,35 @@
       padding: 20px;
       transition: all 0.5s ease;
     }
+
+    .submenu {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+  animation: fadeIn 0.4s ease;
+}
+
+.sub-btn {
+  background: linear-gradient(135deg, #dd009b, #dd009b);
+  box-shadow: 0 0 10px #dd009b;
+}
+
+.sub-btn:hover {
+  box-shadow: 0 0 25px #dd009b, 0 0 40px #dd009b;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   </style>
 </head>
 <body>
@@ -112,7 +141,30 @@
   </div>
 
   <div class="btn-container">
-    <a class="btn" href="https://wa.me/5575992078021?text=HOLA!%20PRECISO%20DE%20AJUDA" target="_blank" data-aos="fade-up">FALE CONOSCO</a>
+   <a class="btn" href="javascript:void(0)" onclick="toggleSubmenu()" data-aos="fade-up">
+  FALE CONOSCO
+</a>
+
+    <div class="submenu" id="submenu">
+  <a class="btn sub-btn" 
+     href="https://wa.me/5571999775415?text=hola,%20vim%20pelo%20suporte,%20tenho%20duvidas/%20quero%20saber%20de%20algo" 
+     target="_blank">
+     💬 WhatsApp
+  </a>
+
+  <a class="btn sub-btn" 
+     href="https://t.me/six6nine94" 
+     target="_blank">
+     📲 Telegram
+  </a>
+
+  <a class="btn sub-btn" 
+     href="https://www.instagram.com/00_dimenor?igsh=MW80cGRxNThheTRjeg==" 
+     target="_blank">
+     📸 Instagram
+  </a>
+</div>
+
     <a class="btn" href="index.html" data-aos="fade-up">⬅️ VOLTAR AO INÍCIO</a>
   </div>
 
@@ -141,7 +193,13 @@
       retina_detect: true
     });
 
-    const texto = `HOLA!, ESTA COM DÚVIDAS SOBRE OS XITS VIP ETC?`;
+    const texto =    `HOLA!, ESTA COM DÚVIDAS SOBRE OS XITS VIP ETC?
+    
+    CLIQUE NO BOTAO "FALE CONOSCO" E DESCREVA O QUE DESEJA!
+    
+    PEÇO QUE SEJA DIRETO AO PONTO, POUPE TEMPO DO SUPORTE!
+    
+    EVITE CHAMAR POR PERGUNTAS BESTAS ETC, CASO CONTRARIO NAO SERA RESPONDIDO!`;
 
     let i = 0;
     const container = document.getElementById("typed-container");
@@ -157,6 +215,14 @@
     window.addEventListener('load', () => {
       digitar();
     });
+
   </script>
+  <script>
+  function toggleSubmenu() {
+    const submenu = document.getElementById("submenu");
+    submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
+  }
+</script>
+
 </body>
 </html>
