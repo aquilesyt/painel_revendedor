@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mods Free Fire</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    /* ❄️ Flocos de neve */
+    .snow {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10px); opacity: 1; }
+      to { transform: translateY(110vh); opacity: 0.3; }
+    }
+
+    /* Conteúdo */
+    .content {
+      position: relative;
+      z-index: 5;
+      padding: 70px 15px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      text-shadow: 0 0 15px #fff;
+    }
+
+    /* Card */
+    .card {
+      margin-bottom: 60px;
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(255, 0, 0, 0.05);
+      box-shadow:
+        0 0 25px rgba(255, 0, 0, 0.25),
+        inset 0 0 20px rgba(255, 0, 0, 0.25);
+    }
+
+    /* ✅ Carrossel estável */
+    .carousel {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 14px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .carousel img.active {
+      display: block;
+    }
+
+    /* Botões */
+    .btn {
+      display: block;
+      padding: 18px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff0000, #8b0000);
+      border: 2px solid rgba(255, 60, 60, 0.9);
+      box-shadow:
+        0 0 15px rgba(255, 0, 0, 0.8),
+        0 0 35px rgba(255, 0, 0, 0.8),
+        inset 0 0 15px rgba(255, 80, 80, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow:
+        0 0 25px rgba(255, 0, 0, 1),
+        0 0 60px rgba(255, 60, 60, 1);
+    }
+
+    footer {
+      margin-top: 70px;
+      font-size: 0.85rem;
+      color: #ccc;
+      text-shadow: 0 0 8px #fff;
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8rem; }
+      .carousel { height: 190px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ❄️ Neve -->
+  <script>
+    const totalFlakes = 45;
+    for (let i = 0; i < totalFlakes; i++) {
+      const snow = document.createElement("div");
+      snow.className = "snow";
+      snow.innerHTML = "❄";
+      snow.style.left = Math.random() * 100 + "vw";
+      snow.style.fontSize = (10 + Math.random() * 18) + "px";
+      snow.style.animationDuration = (6 + Math.random() * 10) + "s";
+      document.body.appendChild(snow);
+    }
+  </script>
+
+  <div class="content">
+    <h1>MODS FREE FIRE</h1>
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="carousel" data-carousel>
+        <img src="images/drip1.png" class="active">
+        <img src="images/drip2.png">
+      </div>
+
+      <a href="loja.html" class="btn">DRIP CLIENTE / BR MODS</a>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="carousel" data-carousel>
+        <img src="images/pato1.jpg" class="active">
+        <img src="images/pato2.jpg">
+      </div>
+
+      <a href="pato.html" class="btn">PATO TEAM</a>
+    </div>
+
+    <footer>© 00_dimenor — todos os direitos reservados</footer>
+  </div>
+
+  <!-- ✅ JS DO CARROSSEL  -->
+  <script>
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+      const images = carousel.querySelectorAll('img');
+      let index = 0;
+
+      setInterval(() => {
+        images[index].classList.remove('active');
+        index = (index + 1) % images.length;
+        images[index].classList.add('active');
+      }, 4000);
+    });
+  </script>
+
+</body>
+</html>

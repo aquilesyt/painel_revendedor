@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PATO TEAM</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* FUNDO COM BRILHOS */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,215,0,0.12), transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(255,215,0,0.1), transparent 50%);
+    animation: brilho 6s infinite alternate;
+    z-index:-1;
+}
+
+@keyframes brilho{
+    from{filter:brightness(1);}
+    to{filter:brightness(1.3);}
+}
+
+h1{
+    text-align:center;
+    margin:25px 0;
+    color:#d9ff00;
+    letter-spacing:2px;
+}
+
+/* CAROUSEL */
+.carousel{
+    width:90%;
+    max-width:900px;
+    margin:30px auto 40px;
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(255,215,0,.25);
+}
+
+.carousel img{
+    width:100%;
+    height:260px;              /* ✅ tamanho controlado */
+    object-fit:contain;        /* ✅ não estica imagens diferentes */
+    object-position:center;
+    display:none;
+    background:#000;
+}
+
+.carousel img.active{
+    display:block;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+    width:90%;
+    max-width:900px;
+    margin:0 auto 80px;
+}
+
+.card{
+    border:2px solid red;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    background:rgba(0,0,0,0.6);
+    box-shadow:0 0 20px rgba(255,0,0,0.3);
+}
+
+.card img{
+    width:100%;
+    height:130px;              /* ✅ menor, sem exagero */
+    object-fit:cover;          /* ✅ corta sem distorcer */
+    object-position:center;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:15px;
+}
+
+.card button{
+    padding:10px 25px;
+    border-radius:25px;
+    border:2px solid red;
+    background:transparent;
+    color:#fff;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:red;
+    box-shadow:0 0 15px red;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-content{
+    background:#000;
+    padding:25px;
+    border-radius:15px;
+    width:90%;
+    max-width:420px;
+    text-align:center;
+    border:3px solid red;
+    animation:borderRGB 4s linear infinite;
+}
+
+@keyframes borderRGB{
+    0%{border-color:red; box-shadow:0 0 15px red;}
+    33%{border-color:yellow; box-shadow:0 0 15px yellow;}
+    66%{border-color:cyan; box-shadow:0 0 15px cyan;}
+    100%{border-color:red; box-shadow:0 0 15px red;}
+}
+
+.modal-content p{
+    font-size:14px;
+    margin-bottom:20px;
+    color:#fff;
+}
+
+/* BOTÕES */
+.modal-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.modal-buttons a{
+    flex:1;
+    padding:12px;
+    border-radius:20px;
+    border:2px solid #FFD700;
+    color:#FFD700;
+    text-decoration:none;
+}
+
+.modal-buttons a:hover{
+    background:#FFD700;
+    color:#000;
+}
+
+/* CONTATOS */
+.contact-buttons{
+    display:none;
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.contact-buttons a{
+    flex:1;
+    padding:10px;
+    border-radius:15px;
+    border:2px solid cyan;
+    color:cyan;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.contact-buttons a:hover{
+    background:cyan;
+    color:#000;
+}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+    .carousel img{
+        height:200px;          /* ✅ mobile */
+    }
+
+    .card img{
+        height:110px;          /* ✅ mobile */
+    }
+
+    .cards{
+        gap:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>PATO TEAM MODMENU APK/ROOT SAFE</h1>
+
+<!-- CAROUSEL -->
+<div class="carousel">
+    <img src="images/img1.jpg" class="active">
+    <img src="images/img2.jpg">
+    <img src="images/img3.jpg">
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+
+    <div class="card">
+        <img src="images/card.jpg">
+        <h3>PATO TEAM - 1 DIA</h3>
+        <button onclick="abrirModal('https://global.tribopay.com.br/yklp5?affh=xktjstzi8c')">VER</button>
+    </div>
+
+    <div class="card">
+        <img src="images/card.jpg">
+        <h3>PATO TEAM - 3 DIAS</h3>
+        <button onclick="abrirModal('https://global.tribopay.com.br/zo7dl?affh=0hk9ljbmdc')">VER</button>
+    </div>
+
+    <div class="card">
+        <img src="images/card.jpg">
+        <h3>PATO TEAM - 7 DIAS</h3>
+        <button onclick="abrirModal('https://global.tribopay.com.br/cqclz?affh=4l317cvu5m')">VER</button>
+    </div>
+
+    <div class="card">
+        <img src="images/card.jpg">
+        <h3>PATO TEAM - 15 DIAS</h3>
+        <button onclick="abrirModal('https://global.tribopay.com.br/dqdqq3dsif?affh=dvxxvj1ys5')">VER</button>
+    </div>
+
+    <div class="card">
+        <img src="images/card.jpg">
+        <h3>PATO TEAM - 30 DIAS</h3>
+        <button onclick="abrirModal('https://global.tribopay.com.br/mcrbt?affh=9km2xpz08a')">VER</button>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="fecharModal(event)">
+    <div class="modal-content">
+        <p>
+            ⚠️ PREENCHA SEUS DADOS CORRETAMENTE.<br>
+            USE UM E-MAIL QUE VOCÊ TENHA ACESSO.<br>
+            VOCÊ RECEBERÁ TUDO NO E-MAIL (KEY, LINKS, ETC).<br>
+            <br>
+            APOS FINALIZAR A COMPRA, TIRE UM PRINT E<br>
+            VOLTE AQUI, E CLIQUE NO BOTAO "FALE COMIGO"<br>
+            ESCOLHA O MEIO DE CONTATO E ME ENVIE O PRINT ⚠️
+        </p>
+
+        <div class="modal-buttons">
+            <a id="comprarLink" href="#" target="_blank">COMPRAR</a>
+            <a href="#" onclick="toggleContato()">FALE COMIGO</a>
+        </div>
+
+        <div class="contact-buttons" id="contatos">
+            <a href="WHATSAPP_LINK" target="_blank">WHATSAPP</a>
+            <a href="TELEGRAM_LINK" target="_blank">TELEGRAM</a>
+            <a href="INSTAGRAM_LINK" target="_blank">INSTAGRAM</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function abrirModal(link){
+    document.getElementById("modal").classList.add("active");
+    document.getElementById("comprarLink").href = link;
+    document.getElementById("contatos").style.display = "none";
+}
+
+function fecharModal(e){
+    if(e.target.id === "modal"){
+        document.getElementById("modal").classList.remove("active");
+    }
+}
+
+function toggleContato(){
+    const c = document.getElementById("contatos");
+    c.style.display = c.style.display === "flex" ? "none" : "flex";
+}
+
+/* CAROUSEL */
+let imgs = document.querySelectorAll('.carousel img');
+let i = 0;
+setInterval(()=>{
+    imgs[i].classList.remove('active');
+    i = (i + 1) % imgs.length;
+    imgs[i].classList.add('active');
+}, 3000);
+</script>
+
+</body>
+</html>
