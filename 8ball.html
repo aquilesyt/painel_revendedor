@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8 Ball Pool MOD APK</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  background:#000;
+  color:#fff;
+  text-align:center;
+  padding:30px 10px;
+  overflow-x:hidden;
+}
+
+/* FUNDO NEON */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top,#ff00aa33,transparent 40%),
+    radial-gradient(circle at bottom,#ff008855,transparent 45%);
+  z-index:-1;
+}
+
+/* TÍTULO */
+h1{
+  font-size:2.2rem;
+  margin-bottom:20px;
+  text-shadow:0 0 20px #ff00aa;
+}
+
+/* CARROSSEL */
+.carousel{
+  position:relative;
+  max-width:360px;
+  margin:0 auto 20px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 25px #ff00aa,0 0 50px #ff00aa55;
+}
+
+.carousel img{
+  width:100%;
+  display:none;
+  animation:fade .6s ease;
+}
+
+.carousel img.active{display:block}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.96)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* SETAS */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.6);
+  border:2px solid #ff00aa;
+  color:#ff00aa;
+  font-size:1.4rem;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 0 15px #ff00aa;
+}
+.arrow.left{left:10px}
+.arrow.right{right:10px}
+
+/* DESCRIÇÃO */
+.desc{
+  max-width:420px;
+  margin:25px auto;
+  font-size:.95rem;
+  line-height:1.6;
+  text-shadow:0 0 10px #ff00aa55;
+}
+
+/* BOTÕES PLANOS */
+.buttons{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.buttons button{
+  padding:14px 22px;
+  background:#ff00aa;
+  color:#fff;
+  font-weight:bold;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:.95rem;
+  box-shadow:0 0 20px #ff00aa,0 0 45px #ff00aa;
+  transition:.3s;
+}
+
+.buttons button:hover{
+  transform:scale(1.07);
+  box-shadow:0 0 30px #ff00aa,0 0 60px #ff00aa;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.modal.show{display:flex}
+
+.modal-card{
+  background:#000;
+  border:2px solid #ff00aa;
+  border-radius:18px;
+  padding:25px;
+  max-width:320px;
+  width:90%;
+  box-shadow:0 0 30px #ff00aa,0 0 60px #ff00aa;
+  animation:pop .4s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.modal-card h2{
+  font-size:1rem;
+  margin-bottom:20px;
+  text-shadow:0 0 15px #ff00aa;
+}
+
+.contact-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.contact-buttons a{
+  padding:12px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:bold;
+  background:#ff00aa;
+  box-shadow:0 0 15px #ff00aa,0 0 30px #ff00aa;
+  transition:.3s;
+}
+
+.contact-buttons a:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>8 BALL POOL MOD APK</h1>
+
+<div class="carousel">
+  <img src="images/8b/8ball1.jpg" class="active">
+  <img src="images/8b/8ball2.jpg">
+  <img src="images/8b/8ball3.jpg">
+  <button class="arrow left" onclick="prev()">❮</button>
+  <button class="arrow right" onclick="next()">❯</button>
+</div>
+
+<div class="desc">
+  Adquira agora o <strong>8 Ball Pool MOD APK</strong> e leve sua gameplay a um
+  nível totalmente superior. Tenha acesso a <strong>vantagens absurdas</strong>,
+  partidas facilitadas e recursos exclusivos que fazem toda a diferença.
+  <br><br>
+  Com o poderoso <strong>Auto Play</strong>, o jogo pode jogar por você
+  automaticamente. Precisa ir ao banheiro, resolver algo rápido ou se ausentar?
+  Basta ativar o recurso e garantir que nenhuma partida seja perdida.
+  <br><br>
+  Domine o jogo, evolua mais rápido e aproveite tudo o que o MOD tem a oferecer.
+</div>
+
+<div class="buttons">
+  <button onclick="openModal('7 DIAS')">7 DIAS =  R$25</button>
+  <button onclick="openModal('30 DIAS')">30 DIAS =  R$40</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <div class="modal-card">
+    <h2>ESCOLHA O MEIO DE CONTATO PARA ADQUIRIR</h2>
+    <div class="contact-buttons">
+      <a id="whats" target="_blank">WHATSAPP</a>
+      <a id="insta" target="_blank">INSTAGRAM</a>
+      <a id="tele" target="_blank">TELEGRAM</a>
+    </div>
+  </div>
+</div>
+
+<script>
+let index = 0;
+const imgs = document.querySelectorAll('.carousel img');
+
+function show(i){
+  imgs.forEach(img=>img.classList.remove('active'));
+  imgs[i].classList.add('active');
+}
+
+function next(){
+  index = (index + 1) % imgs.length;
+  show(index);
+}
+
+function prev(){
+  index = (index - 1 + imgs.length) % imgs.length;
+  show(index);
+}
+
+function openModal(plano){
+  const msg = `hola vim pelo site, quero adiquirir ${plano} do 8 ball poll mod apk`;
+  document.getElementById('whats').href =
+    `https://wa.me/5571999775415?text=${encodeURIComponent(msg)}`;
+  document.getElementById('insta').href =
+    `https://instagram.com/00_dimenor`;
+  document.getElementById('tele').href =
+    `https://t.me/six6nine94`;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal(e){
+  if(e.target.id === 'modal'){
+    document.getElementById('modal').classList.remove('show');
+  }
+}
+</script>
+
+</body>
+</html>
