@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Categoria iOS — aquiles YT1</title>
+
+<style>
+*{
+  box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;
+}
+
+/* Fundo */
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* Snow Effect */
+canvas#snow{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* HEADER */
+header{text-align:center;padding:32px 14px 10px;z-index:2;position:relative}
+header h1{
+  color:#ff0000;
+  font-size:2.2rem;
+  text-shadow:0 0 18px #ff0000,0 0 40px #ff4444;
+}
+header p{
+  color:#e6e6e6;
+  max-width:820px;
+  margin:8px auto 0;
+  font-size:1rem;
+  opacity:.95;
+}
+
+/* ---------- 2 COLUNAS FIXAS ---------- */
+.products{
+  width:92%;
+  max-width:1100px;
+  margin:28px auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  padding:0 12px;
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:450px){
+  .products{grid-template-columns:repeat(2,1fr);}
+}
+
+/* CARD */
+.card{
+  background:linear-gradient(180deg,rgba(20,0,0,0.6),rgba(10,0,0,0.35));
+  border:2px solid rgba(255,0,0,0.25);
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  position:relative;
+  box-shadow:0 6px 30px rgba(255,0,0,0.06);
+  transform:translateY(12px);
+  opacity:0;
+  transition:.6s ease;
+}
+.card.visible{transform:translateY(0);opacity:1}
+
+.card h3{
+  color:#ff3333;
+  font-size:1.15rem;
+  margin-bottom:12px;
+  text-shadow:0 0 10px rgba(255,0,0,0.12);
+}
+
+.btn-open{
+  padding:10px 18px;
+  border-radius:10px;
+  border:2px solid #ff0000;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font-weight:700;
+  box-shadow:0 0 18px rgba(255,0,0,0.08);
+}
+.btn-open:hover{
+  background:#ff0000;color:#000;
+}
+
+/* ---------- SUBMENU ---------- */
+.modal-back{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.75);
+  z-index:90;
+  padding:18px;
+}
+.modal{
+  width:100%;
+  max-width:720px;
+  background:linear-gradient(180deg,#0a0000,#060000);
+  border-radius:12px;
+  padding:18px;
+  border:2px solid rgba(255,0,0,0.12);
+  box-shadow:0 10px 60px rgba(0,0,0,0.6);
+  position:relative;
+}
+.close-x{
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#000;
+  border:2px solid rgba(255,255,255,0.08);
+  font-size:20px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+}
+.close-x:hover{
+  background:#ff0000;
+  color:#000;
+}
+
+.modal h2{
+  color:#ff4444;
+  text-align:center;
+  margin-bottom:6px;
+  text-shadow:0 0 14px rgba(255,0,0,0.18);
+}
+
+.modal p{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.plan{
+  padding:12px;
+  border:1px solid rgba(255,0,0,0.05);
+  border-radius:10px;
+  margin-bottom:10px;
+  background:rgba(255,255,255,0.03);
+}
+
+/* Botão adquirir */
+#adquirirBtn{
+  padding:12px 18px;
+  border-radius:10px;
+  border:2px solid #fff;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  width:100%;
+  margin-top:12px;
+  font-weight:700;
+}
+#adquirirBtn:hover{
+  background:#fff;color:#000;
+}
+
+/* DEMO */
+#demoBtn{
+  padding:12px 18px;
+  width:100%;
+  margin-top:10px;
+  border-radius:10px;
+  border:2px solid #ff0000;
+  background:transparent;
+  color:#fff;
+}
+#demoBtn:hover{background:#ff0000;color:#000}
+
+/* CONTACT AREA */
+.contact-area{
+  display:none;
+  margin-top:14px;
+  text-align:center;
+}
+.contact-row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.contact-row a{
+  padding:10px 14px;
+  border:2px solid #ff0000;
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+}
+.contact-row a:hover{
+  background:#ff0000;color:#000;
+}
+
+/* WARNING (PERMANENTE) */
+.warning{
+  background:linear-gradient(90deg,#2b1b00,#111);
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #664400;
+  margin-top:12px;
+  text-align:center;
+  color:#ffd77a;
+}
+
+/* Fade in */
+.fade-in{opacity:0;transform:translateY(18px);transition:.6s}
+.fade-in.show{opacity:1;transform:translateY(0)}
+</style>
+
+<!-- Proteção F12 -->
+<script>
+document.addEventListener("keydown", function(e){
+  if(e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")){
+    e.preventDefault();
+  }
+});
+</script>
+
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<header>
+  <h1>SEJA BEM-VINDO À CATEGORIA IOS 🔥</h1>
+  <p>OS ARQUIVOS FUNCIONAM SOMENTE EM IPHONES COM VERSÃO DOiOS 12 ATÉ 16.7 — NECESSÁRIO TER FILZA!</p>
+</header>
+
+<section class="products" id="products">
+  <!-- automático via JS -->
+</section>
+
+<!-- SUBMENU -->
+<div id="modalBack" class="modal-back" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="close-x" onclick="closeModal()">✕</button>
+    <h2 id="mTitle"></h2>
+    <p id="mBase"></p>
+
+    <button id="adquirirBtn">ADQUIRIR</button>
+    <a id="demoBtn" href="#" target="_blank">DEMONSTRAÇÃO DO PRODUTO</a>
+
+    <div class="warning" id="warn" style="display:none">
+      ⚠️ ADQUIRINDO A VERSÃO PERMANENTE, VOCÊ GANHA ACESSO A TODOS OS XITIS DISPONÍVEIS OU NOVOS ⚠️
+    </div>
+
+    <div class="contact-area" id="contactArea">
+      <div class="contact-row">
+        <a id="waBtn" target="_blank">WhatsApp</a>
+        <a id="igBtn" href="https://www.instagram.com/00_dimenor" target="_blank">Instagram</a>
+        <a id="tgBtn" target="_blank">Telegram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Snow Effect */
+const canvas=document.getElementById("snow"),ctx=canvas.getContext("2d");
+function rs(){canvas.width=innerWidth;canvas.height=innerHeight}
+addEventListener("resize",rs);rs();
+let fl=[];
+for(let i=0;i<120;i++){fl.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,v:Math.random()*1+0.3})}
+function sn(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  fl.forEach(f=>{f.y+=f.v;if(f.y>canvas.height)f.y=-10;
+    ctx.fillStyle="white";ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,6.28);ctx.fill();
+  });
+  requestAnimationFrame(sn);
+}
+sn();
+
+/* PRODUCTS */
+const DATA=[
+  {name:"HS PESCOÇO 50%", price:40, demo:"https://youtu.be/rmUUpua5OxE?si=9vSJU7DkhaxmVCP7"},
+  {name:"HS PESCOÇO", price:45, demo:"https://youtu.be/ghRnLcWL2iU?si=N1UOQcZ_Kjd_OLnB"},
+  {name:"HS PEITO 70%", price:50, demo:"https://youtu.be/hD1u5J8CgEw?si=HHuXRj9eUuDa4Ad8"},
+  {name:"HS PEITO 80%", price:55, demo:"https://youtu.be/L9mjSl6xFno?si=uCnsC0KvlnAVdeHD"},
+  {name:"HS PEITO CABEÇA", price:60, demo:"https://youtu.be/-_NtGDaaq60?si=kkoDNjWTJCoNwFo2"},
+  {name:"UNDER CARR", price:50, demo:"https://youtu.be/LTRXljy-gcM?si=_TV6OBol3kmh_OoP"},
+  {name:"FLY CARR", price:55, demo:"https://youtu.be/8hujUUA83i8?si=Rvulpryw7loYua3f"},
+  {name:"WALLHACKER LITE", price:25, demo:"https://youtu.be/z5iOMNBeUEA?si=4mPV-naYycWuTsU9"},
+  {name:"ZÉ PEDRINHA", price:20, demo:"SEU_LINK_AQUI"},
+  {name:"HOLOGRAMA", price:15, demo:"SEU_LINK_AQUI"},
+  {name:"VERSÃO PERMANENTE", price:180, demo:null}
+];
+
+const box=document.getElementById("products");
+
+DATA.forEach(p=>{
+  const c=document.createElement("div");
+  c.className="card fade-in";
+  c.innerHTML=`
+    <h3>${p.name}</h3>
+    <button class="btn-open">Abrir</button>`;
+  c.dataset.name=p.name;
+  c.dataset.price=p.price;
+  c.dataset.demo=p.demo;
+  box.appendChild(c);
+});
+
+/* Fade-in */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting) x.target.classList.add("visible","show");
+  });
+},{threshold:0.2});
+document.querySelectorAll(".card").forEach(c=>obs.observe(c));
+
+/* SUBMENU LOGIC */
+const modalBack=document.getElementById("modalBack");
+const mTitle=document.getElementById("mTitle");
+const mBase=document.getElementById("mBase");
+const demoBtn=document.getElementById("demoBtn");
+const adquirirBtn=document.getElementById("adquirirBtn");
+const warn=document.getElementById("warn");
+const contactArea=document.getElementById("contactArea");
+const waBtn=document.getElementById("waBtn");
+const tgBtn=document.getElementById("tgBtn");
+
+document.querySelectorAll(".btn-open").forEach(b=>{
+  b.onclick=e=>{
+    const card=e.target.closest(".card");
+    const name=card.dataset.name;
+    const price=card.dataset.price;
+    const demo=card.dataset.demo;
+
+    mTitle.textContent=name;
+    mBase.textContent=`Valor: R$ ${price}`;
+    warn.style.display=name.includes("PERMANENTE")?"block":"none";
+
+    if(demo){
+      demoBtn.style.display="block";
+      demoBtn.href=demo;
+    } else demoBtn.style.display="none";
+
+    contactArea.style.display="none";
+
+    adquirirBtn.onclick=()=>{
+      const msg=encodeURIComponent(`Hola, vim pelo site, quero adquirir ${name} - iOS.`);
+      waBtn.href=`https://wa.me/5571999775415?text=${msg}`;
+      tgBtn.href=`https://t.me/six6nine94?text=${msg}`;
+      contactArea.style.display="block";
+    };
+
+    modalBack.style.display="flex";
+  }
+});
+
+function closeModal(){
+  modalBack.style.display="none";
+}
+modalBack.onclick=e=>{ if(e.target===modalBack) closeModal(); }
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+
+</script>
+
+</body>
+</html>

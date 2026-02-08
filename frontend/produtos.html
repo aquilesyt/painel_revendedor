@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Loja — aquiles YT1</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+  body{background:#000;color:#fff;min-height:100vh;overflow-x:hidden;position:relative;padding-bottom:80px}
+
+  header{text-align:center;padding:38px 14px 14px}
+  header h1{color:#ff0000;font-size:2.2rem;text-shadow:0 0 18px #ff0000,0 0 40px #ff4444}
+  header p{color:#e6e6e6;max-width:720px;margin:0 auto;font-size:1rem;opacity:.92}
+
+  /* CARROSSEL */
+  .carousel-container{width:100%;display:flex;justify-content:center;margin-top:18px;margin-bottom:35px}
+  .carousel{width:90%;max-width:540px;border-radius:14px;overflow:hidden;box-shadow:0 0 18px rgba(255,0,0,.6)}
+  .carousel img{width:100%;display:none;border-radius:14px;object-fit:cover}
+  .carousel img.active{display:block;animation:fade .8s ease-in-out}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+
+  /* CARDS */
+  .cards-wrap{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:22px;padding:0 14px}
+  .main-card{
+    width:44%;
+    min-width:260px;
+    border:2px solid #ff0000;border-radius:16px;padding:20px;text-align:center;
+    background:rgba(20,0,0,0.55);box-shadow:0 0 22px rgba(255,0,0,0.12);
+  }
+  .main-card img{width:95px;margin-bottom:12px;opacity:.9;filter:drop-shadow(0 0 12px rgba(255,0,0,.28))}
+  .main-card h3{color:#ff3b3b;font-size:1.25rem;margin-bottom:8px}
+  .btn-open{
+    padding:10px 20px;border-radius:10px;border:2px solid #ff0000;background:transparent;color:#fff;
+    cursor:pointer;font-size:.95rem;
+    transition:.18s;
+  }
+  .btn-open:hover{background:#ff0000;color:#000}
+
+  /* MODAL */
+  .modal-back{position:fixed;inset:0;display:none;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:16px;z-index:80}
+  .modal{
+    width:100%;max-width:730px;background:#0a0000;border:2px solid #ff000033;border-radius:14px;padding:18px;position:relative;
+  }
+  .modal h2{text-align:center;color:#ff3b3b;margin-bottom:8px}
+  .modal p.sub{text-align:center;color:#d7d7d7;margin-bottom:10px}
+
+  .plan{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;
+    border:1px solid #ff000025;background:rgba(255,255,255,0.03);margin-bottom:8px}
+  .plan .title{font-weight:600}
+  .plan .price{font-weight:700}
+  .buy{padding:7px 14px;border:2px solid #ff0000;border-radius:8px;background:transparent;color:#fff;cursor:pointer}
+  .contact-row{display:flex;justify-content:center;gap:10px;margin-top:12px}
+  .contact-row a{padding:10px 14px;border-radius:10px;border:2px solid #ff0000;text-decoration:none;color:#fff;background:transparent}
+
+  .close-x{position:absolute;top:10px;right:12px;font-size:20px;background:none;border:none;color:#fff;cursor:pointer}
+
+  .back-floating{
+    position:fixed;bottom:22px;left:22px;width:55px;height:55px;background:#ff0000;border:none;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:26px;color:#000;cursor:pointer;
+    box-shadow:0 0 18px rgba(255,0,0,0.7);transition:0.18s;z-index:150;
+  }
+  .back-floating:hover{transform:scale(1.12)}
+  
+  canvas#particles{position:fixed;inset:0;pointer-events:none;z-index:0}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+  <h1>Produtos Mobile, Root & Pc</h1>
+  <p>Escolha o plano ideal para você! E desfrute ao máximo 🔥</p>
+</header>
+
+<!-- CARROSSEL DRIP -->
+<div class="carousel-container">
+  <div class="carousel" id="carousel">
+    <img src="images/produtos/drip1.png" class="active">
+    <img src="images/produtos/drip2.png">
+    <img src="images/produtos/drip3.png">
+  </div>
+</div>
+
+<!-- CARDS DO DRIP -->
+<section class="cards-wrap">
+  <div class="main-card" data-type="MOBILE">
+    <img src="images/drip.png">
+    <h3>DRIP CLIENTE — MOBILE</h3>
+    <button class="btn-open" data-type="MOBILE">Ver Planos</button>
+  </div>
+
+  <div class="main-card" data-type="ROOT">
+    <img src="images/drip.png">
+    <h3>DRIP CLIENTE — ROOT</h3>
+    <button class="btn-open" data-type="ROOT">Ver Planos</button>
+  </div>
+</section>
+
+<!-- CARROSSEL FF -->
+<div class="carousel-container">
+  <div class="carousel" id="carousel2">
+    <img src="images/produtos/ff1.png" class="active">
+    <img src="images/produtos/ff2.jpg">
+    <img src="images/produtos/ff3.jpg">
+    <img src="images/produtos/ff44.jpg">
+  </div>
+</div>
+
+<!-- CARD BR MODS -->
+<section class="cards-wrap">
+  <div class="main-card" data-type="BRMODS">
+    <img src="images/br.png">
+    <h3>BR MODS — ROOT</h3>
+    <button class="btn-open" data-type="BRMODS">Ver Planos</button>
+  </div>
+
+  <div class="main-card" data-type="RAGE">
+    <img src="images/br.png">
+    <h3>BR MODS RAGE — PC</h3>
+    <button class="btn-open" data-type="RAGE">Ver Planos</button>
+  </div>
+
+   <div class="main-card" data-type="BYPASS">
+    <img src="images/br.png">
+    <h3>BR MODS RAGE + BYPASS PC</h3>
+    <button class="btn-open" data-type="BYPASS">Ver Planos</button>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="modalBack" class="modal-back" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="close-x" onclick="closeModal()">×</button>
+    <h2 id="modalTitle"></h2>
+    <p class="sub">Selecione o plano desejado</p>
+    <div id="plansContainer"></div>
+
+    <div id="contactArea" style="display:none">
+      <div class="contact-row">
+        <a id="waBtn" target="_blank">WhatsApp</a>
+        <a href="https://www.instagram.com/00_dimenor" target="_blank">Instagram</a>
+        <a id="tgBtn" target="_blank">Telegram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class='back-floating' href='/'>←</a>
+
+<script>
+const PLANS={
+  MOBILE:[{d:'1 DIA',p:'R$ 13,50'},{d:'7 DIAS',p:'R$ 36,00'},{d:'15 DIAS',p:'R$ 54,00'},{d:'30 DIAS',p:'R$ 90,00'}],
+  ROOT:[{d:'1 DIA',p:'R$ 13,50'},{d:'7 DIAS',p:'R$ 36,00'},{d:'30 DIAS',p:'R$ 72,00'}],
+  BRMODS:[{d:'1 DIA',p:'R$ 10,00'},{d:'15 DIAS',p:'R$ 30,00'},{d:'30 DIAS',p:'R$ 40,00'}],
+  RAGE:[{d:'1 DIA',p:'R$ 10,00'},{d:'10 DIAS',p:'R$ 50,00'},{d:'30 DIAS',p:'R$ 100,00'}],
+  BYPASS:[{d:'1 DIA',p:'R$ 15,00'},{d:'10 DIAS',p:'R$ 70,00'},{d:'30 DIAS',p:'R$ 150,00'}],
+};
+const WA='5571999775415', TG='six6nine94';
+
+function openModal(type){
+  modalBack.style.display='flex';
+  modalTitle.textContent = 
+    type==='MOBILE'?'DRIP CLIENTE — MOBILE':
+    type==='ROOT'?'DRIP CLIENTE — ROOT':
+    type==='BRMODS'?'BR MODS - ROOT':
+    type==='RAGE'?'BR MODS RAGE - PC':
+    type==='BYPASS'?'BR MODS RAGE + BYPASS PC':
+
+  plansContainer.innerHTML='';
+  contactArea.style.display='none';
+
+  plansContainer.innerHTML = '';
+contactArea.style.display = 'none';
+
+PLANS[type].forEach(x => {
+  const div = document.createElement('div');
+  div.className = 'plan';
+  div.innerHTML = `
+    <div>
+      <div class="title">${x.d}</div>
+      <div class="price">${x.p}</div>
+    </div>
+    <button class="buy" data-plan="${x.d}">Adquirir</button>
+  `;
+  plansContainer.appendChild(div);
+});
+
+/* EVENTO ÚNICO (delegação) */
+plansContainer.onclick = (e) => {
+  if (!e.target.classList.contains('buy')) return;
+
+  const plan = e.target.dataset.plan;
+  const msg = encodeURIComponent(
+    `Hola, vim pelo site e quero o plano ${plan} (${modalTitle.textContent}).`
+  );
+
+  waBtn.href = `https://wa.me/${WA}?text=${msg}`;
+  tgBtn.href = `https://t.me/${TG}?text=${msg}`;
+  contactArea.style.display = 'block';
+};
+
+}
+
+function closeModal(){modalBack.style.display='none';}
+document.querySelectorAll('.btn-open')
+  .forEach(btn => {
+    btn.onclick = () => openModal(btn.dataset.type);
+  });
+
+/* Carousel 1 */
+setInterval(()=>{let a=document.querySelector('#carousel img.active');let n=a.nextElementSibling||a.parentNode.firstElementChild;a.classList.remove('active');n.classList.add('active');},2500);
+/* Carousel 2 */
+setInterval(()=>{let a=document.querySelector('#carousel2 img.active');let n=a.nextElementSibling||a.parentNode.firstElementChild;a.classList.remove('active');n.classList.add('active');},2500);
+
+/* Partículas */
+const c=document.getElementById('particles'),x=c.getContext('2d');
+function rs(){c.width=innerWidth;c.height=innerHeight}addEventListener('resize',rs);rs();
+let ps=[];class P{constructor(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.r=Math.random()*2;this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5}u(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>c.width)this.vx*=-1;if(this.y<0||this.y>c.height)this.vy*=-1}d(){x.fillStyle='rgba(255,0,0,0.09)';x.beginPath();x.arc(this.x,this.y,this.r,0,99);x.fill()}}
+for(let i=0;i<80;i++)ps.push(new P());
+(function a(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.u();p.d()});requestAnimationFrame(a)})();
+</script>
+
+</body>
+</html>

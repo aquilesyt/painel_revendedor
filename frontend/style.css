@@ -1,0 +1,56 @@
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000;
+  color: white;
+  overflow-x: hidden;
+}
+#particles-js {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.card {
+  background-color: #111;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px red;
+}
+input[type="text"] {
+  padding: 5px;
+  width: 80%;
+  margin-top: 10px;
+}
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.btn-roxo {
+  background-color: #6200ea;
+  color: white;
+}
+.btn-vermelho {
+  background-color: red;
+  color: white;
+}
+.tabela-ios {
+  margin-top: 10px;
+  display: none;
+  background-color: #222;
+  padding: 10px;
+  border-radius: 8px;
+}
