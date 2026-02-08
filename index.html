@@ -19,14 +19,12 @@ body{
   overflow-x:hidden;
 }
 
-/* PARTICLES */
 #particles-js{
   position:fixed;
   inset:0;
   z-index:0;
 }
 
-/* MENU */
 .menu-toggle{
   position:fixed;
   top:15px;
@@ -54,9 +52,7 @@ body{
   transition:.4s;
   z-index:29;
 }
-
 .side-panel.show{transform:translateX(0)}
-
 .side-panel a{
   display:block;
   margin-top:25px;
@@ -69,7 +65,6 @@ body{
   text-decoration:none;
 }
 
-/* OVERLAY */
 #overlay{
   position:fixed;
   inset:0;
@@ -78,20 +73,17 @@ body{
   opacity:0;
   pointer-events:none;
 }
-
 #overlay.show{
   opacity:1;
   pointer-events:all;
 }
 
-/* HEADER */
 h1{
   margin-top:4rem;
   font-size:2.4rem;
   z-index:2;
   position:relative;
 }
-
 .typed-text{
   color:#ccc;
   margin:10px 0 25px;
@@ -100,7 +92,6 @@ h1{
   position:relative;
 }
 
-/* FOTO */
 .circle-img{
   width:170px;
   height:170px;
@@ -112,65 +103,23 @@ h1{
   position:relative;
   box-shadow:0 0 25px crimson;
 }
+.circle-img img{width:100%;height:100%;object-fit:cover}
 
-.circle-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* LINKS */
-.links{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  max-width:380px;
-  margin:0 auto 35px;
-  z-index:2;
-  position:relative;
-}
-
-.links a{
-  padding:12px;
-  font-size:.85rem;
-  background:linear-gradient(135deg,#ff0000,#990000);
-  border-radius:10px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-  box-shadow:
-    0 0 10px #ff0000,
-    0 0 25px #ff0000;
-  transition:.3s;
-}
-
-.links a:hover{
-  box-shadow:
-    0 0 20px #ff0000,
-    0 0 45px #ff0000;
-}
-
-/* CATEGORIA CENTRAL */
 .categoria{
   display:flex;
   justify-content:center;
-  margin:0 auto 18px;
+  margin-bottom:18px;
   z-index:2;
   position:relative;
 }
-
 .categoria span{
   padding:9px 18px;
   border:2px solid #ff0000;
   border-radius:30px;
   font-size:.85rem;
-  box-shadow:
-    0 0 10px #ff0000,
-    0 0 25px #ff0000,
-    0 0 40px #ff0000;
+  box-shadow:0 0 10px #ff0000,0 0 25px #ff0000;
 }
 
-/* CARDS */
 .cards{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -180,35 +129,15 @@ h1{
   z-index:2;
   position:relative;
 }
-
 .card{
   border:2px solid #ff0000;
   border-radius:14px;
   padding:12px;
   background:#000;
-  box-shadow:
-    0 0 15px #ff0000,
-    0 0 35px #ff000055;
-  transition:.3s;
+  box-shadow:0 0 15px #ff0000,0 0 35px #ff000055;
 }
-
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:
-    0 0 25px #ff0000,
-    0 0 55px #ff0000;
-}
-
-.card img{
-  width:100%;
-  border-radius:10px;
-}
-
-.card h3{
-  font-size:.9rem;
-  margin:10px 0;
-}
-
+.card img{width:100%;border-radius:10px}
+.card h3{font-size:.9rem;margin:10px 0}
 .card a{
   display:block;
   padding:8px;
@@ -218,23 +147,59 @@ h1{
   text-decoration:none;
   color:#fff;
   font-weight:bold;
-  box-shadow:
-    0 0 10px #ff0000,
-    0 0 30px #ff0000;
+}
+
+#guestModal,#eliteModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:60;
+}
+.box{
+  background:#000;
+  border:2px solid #ff0000;
+  border-radius:14px;
+  padding:20px;
+  width:90%;
+  max-width:300px;
+  box-shadow:0 0 30px #ff0000;
+}
+
+#guestContacts,#eliteContacts{
+  margin-top:12px;
+  display:none;
+}
+#guestContacts a,#eliteContacts a{
+  display:block;
+  margin-top:8px;
+  color:#ff3b3b;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.btn-comprar{
+  background:linear-gradient(135deg,#ff1e1e,#b30000);
+  color:#fff;
+  border:none;
+  padding:14px 28px;
+  font-size:16px;
+  font-weight:700;
+  border-radius:10px;
+  cursor:pointer;
   transition:.3s;
+  box-shadow:0 0 15px rgba(255,0,0,.45);
+}
+.btn-comprar:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(255,0,0,.8);
 }
 
-.card a:hover{
-  box-shadow:
-    0 0 20px #ff0000,
-    0 0 45px #ff0000;
-}
-
-/* FOOTER */
 footer{
   font-size:.85rem;
   margin-top:30px;
-  text-shadow:0 0 15px #ff00ff;
   z-index:2;
   position:relative;
 }
@@ -260,13 +225,6 @@ footer{
 
 <div class="circle-img" data-aos="zoom-in">
   <img src="minha-foto.png">
-</div>
-
-<div class="links" data-aos="fade-up">
-  <a href="infoprodu.html">COMPRE SEU MOD </a>
-  <a href="ios.html">MODS IOS VIP</a>
-  <a href="xits.html">XITS GRÁTIS</a>
-  <a href="https://whatsapp.com/channel/0029Vb6t61aI7BeJQk7eHL2U/106" target="_blank">WHATSAPP</a>
 </div>
 
 <div class="categoria" data-aos="fade-up">
@@ -297,20 +255,62 @@ footer{
     <h3>BR MODS</h3>
     <a href="loja.html">VER</a>
   </div>
+
+  <div class="card" data-aos="fade-up" data-aos-delay="400">
+    <img src="images/guest.jpg">
+    <h3>CONTA GUEST</h3>
+    <a href="#" onclick="openGuest()">VER</a>
+  </div>
+
+  <!-- 🔥 NOVO CARD -->
+  <div class="card" data-aos="fade-up" data-aos-delay="500">
+    <img src="images/elite.jpg">
+    <h3>PASSE DE ELITE</h3>
+    <a href="#" onclick="openElite()">VER</a>
+  </div>
 </div>
 
 <footer data-aos="fade-up">🔒 aquilesyt — todos os direitos reservados</footer>
+
+<!-- MODAL GUEST -->
+<div id="guestModal" onclick="closeGuest(event)">
+  <div class="box">
+    <h3>VALOR DA CONTA GUEST</h3>
+      <h3>VIA CONVIDADO</h3>
+    <p><b>ﾠ</b></p>
+    <p><b>R$ 0,95</b></p>
+    <p><b>ﾠ</b></p>
+    <button class="btn-comprar" onclick="toggleGuestContacts(event)">Comprar</button>
+    <div id="guestContacts">
+      <a href="https://t.me/six6nine94" target="_blank">Telegram</a>
+      <a href="https://instagram.com/oo_dimenor" target="_blank">Instagram</a>
+      <a href="https://wa.me/5571999775415" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ELITE -->
+<div id="eliteModal" onclick="closeElite(event)">
+  <div class="box">
+    <h3>PASSE DE ELITE</h3>
+    <p><b>ﾠ</b></p>
+    <p><b>VALOR = R$ 6,00</b></p>
+    <p><b>ﾠ</b></p>
+    <button class="btn-comprar" onclick="toggleEliteContacts(event)">Comprar</button>
+    <div id="eliteContacts">
+      <a href="https://t.me/six6nine94" target="_blank">Telegram</a>
+      <a href="https://instagram.com/oo_dimenor" target="_blank">Instagram</a>
+      <a href="https://wa.me/5571999775415" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-AOS.init({
-  duration:900,
-  easing:'ease-out-cubic',
-  once:true
-});
+AOS.init({duration:900,once:true});
 
 particlesJS("particles-js",{
   particles:{number:{value:80},color:{value:"#ff0000"},size:{value:3},move:{speed:2}}
@@ -330,6 +330,32 @@ function toggleMenu(){
 function closeMenu(){
   sidePanel.classList.remove("show");
   overlay.classList.remove("show");
+}
+
+function openGuest(){ guestModal.style.display="flex"; }
+function closeGuest(e){
+  if(e.target.id==="guestModal"){
+    guestModal.style.display="none";
+    guestContacts.style.display="none";
+  }
+}
+function toggleGuestContacts(e){
+  e.stopPropagation();
+  guestContacts.style.display =
+    guestContacts.style.display==="block"?"none":"block";
+}
+
+function openElite(){ eliteModal.style.display="flex"; }
+function closeElite(e){
+  if(e.target.id==="eliteModal"){
+    eliteModal.style.display="none";
+    eliteContacts.style.display="none";
+  }
+}
+function toggleEliteContacts(e){
+  e.stopPropagation();
+  eliteContacts.style.display =
+    eliteContacts.style.display==="block"?"none":"block";
 }
 </script>
 
