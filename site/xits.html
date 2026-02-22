@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>XITIS FREE</title>
+<style>
+    body {
+        background: #000;
+        color: #fff;
+        font-family: Poppins, Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* --- NEVE DE FUNDO --- */
+    #snowCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    header {
+        padding-top: 18px;
+        z-index: 2;
+        position: relative;
+    }
+
+    h1 {
+        padding: 20px;
+        color: #ff0000;
+        text-shadow: 0 0 15px #ff0000;
+        position: relative;
+        z-index: 2;
+        margin: 0;
+    }
+
+    .buttons {
+        margin-top: 28px;
+        position: relative;
+        z-index: 2;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:18px;
+        padding-bottom:40px;
+    }
+
+    /* BOTÕES PRINCIPAIS */
+    .main-btn {
+        background: #140000;
+        border: 2px solid #ff0000;
+        padding: 14px 22px;
+        width: 330px;
+        max-width:90%;
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 0 12px #ff0000;
+        font-size: 15px;
+        transition: 0.15s;
+        cursor: pointer;
+        font-weight:700;
+    }
+
+    .main-btn:hover {
+        background: #ff0000;
+        color: #000;
+        box-shadow: 0 0 28px #ff4444;
+    }
+
+    /* --- MODAL DO SUBMENU (REUTILIZÁVEL) --- */
+    .modal-back {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        padding: 14px;
+    }
+
+    .modal-box {
+        background: #0d0000;
+        border: 2px solid #ff0000;
+        width: 92%;
+        max-width: 520px;
+        padding: 18px;
+        border-radius: 14px;
+        box-shadow: 0 0 30px #ff0000;
+        position: relative;
+        animation: pop 0.28s ease;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        align-items:stretch;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.96); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-title {
+        font-size: 20px;
+        color: #ff4444;
+        text-shadow: 0 0 12px #ff0000;
+        margin: 6px 0 6px;
+        text-align:center;
+        font-weight:800;
+    }
+
+    /* BOTÕES DENTRO DO MODAL */
+    .modal-actions {
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        align-items:center;
+    }
+
+    .modal-actions .link-btn {
+        width:100%;
+        max-width:460px;
+        background: #200000;
+        border: 2px solid #ff0000;
+        padding: 12px;
+        border-radius: 10px;
+        color: #fff;
+        box-shadow: 0 0 12px #ff0000;
+        font-weight:700;
+        text-decoration:none;
+        display:inline-block;
+        text-align:center;
+    }
+
+    .modal-actions .link-btn:hover {
+        background: #ff0000;
+        color: #000;
+    }
+
+    /* BOTÃO DE FECHAR (X) */
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        width:36px;
+        height:36px;
+        line-height:36px;
+        text-align:center;
+        font-size:18px;
+        color: #fff;
+        border-radius:50%;
+        background: transparent;
+        border:2px solid rgba(255,255,255,0.06);
+        cursor: pointer;
+    }
+    .close-btn:hover{
+        background: rgba(255,0,0,0.12);
+    }
+
+    /* Responsividade */
+    @media (max-width:440px){
+        .main-btn{ width: 90%; padding:12px; font-size:14px }
+        .modal-box{ padding:14px }
+    }
+</style>
+</head>
+<body>
+
+<canvas id="snowCanvas"></canvas>
+
+<header>
+  <h1>Aproveite os XITIS FREE disponíveis</h1>
+</header>
+
+<div class="buttons">
+    <!-- NEW: HOLOGRAMA SKINS first -->
+    <button class="main-btn" onclick="openMenu('holograma')">HOLOGRAMA SKINS (22/11/2025)</button>
+
+    <!-- AIMBOT menu (original) -->
+    <button class="main-btn" onclick="openMenu('aimbot')">MOD MENU APK AIMBOT (17/11/2025)</button>
+
+    <!-- BOTÃO ORIGINAL -->
+    <button class="main-btn" onclick="location.href='https://alpharede.com/1eDT8CV7M5E'">
+        FLY CARRO 2v1 (5/11/2025)
+    </button>
+</div>
+
+<!-- REUSABLE MODAL -->
+<div class="modal-back" id="modalBack" onclick="closeMenu(event)">
+    <div class="modal-box" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+        <button class="close-btn" aria-label="Fechar" onclick="closeMenu()">×</button>
+        <div class="modal-title" id="modalTitle">TÍTULO</div>
+
+        <div class="modal-actions" id="modalActions">
+            <!-- buttons injected dynamically -->
+        </div>
+    </div>
+</div>
+
+<script>
+/* --- ANIMAÇÃO DE NEVE --- */
+const canvas = document.getElementById("snowCanvas");
+const ctx = canvas.getContext("2d");
+let flakes = [];
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function Snow() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.r = Math.random() * 2 + 1;
+    this.d = Math.random() + 0.5;
+}
+Snow.prototype.update = function() {
+    this.y += this.d;
+    if (this.y > canvas.height) {
+        this.y = -10;
+        this.x = Math.random() * canvas.width;
+    }
+};
+Snow.prototype.draw = function() {
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+    ctx.fill();
+};
+for (let i = 0; i < 100; i++) flakes.push(new Snow());
+function animateSnow() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let f of flakes) { f.update(); f.draw(); }
+    requestAnimationFrame(animateSnow);
+}
+animateSnow();
+
+/* --- Modal content definitions (you can change links here) --- */
+const MENUS = {
+    aimbot: {
+        title: "MOD MENU AIMBOT",
+        buttons: [
+            { label: "BAIXAR MOD MENU APK AIMBOT V154", href: "https://sub2unlock.me/w1vICyq" },
+            { label: "DOWNLOAD VPN INDIA NO ADS", href: "https://www.mediafire.com/file/dxgz6vbxm5a2cfe/INDIA%2BVPN%2BNO%2BADS.apk/file" },
+            { label: "DOWNLOAD OBB OBRIGATÓRIO", href: "https://sub2unlock.me/TVuUZh1" },
+            { label: "COMO PASSAR NO ENCURTADOR", href: "https://youtube.com/shorts/oQ7ZgoCp4Kg?si=3yxLUdN_eujNtp0A" }
+        ]
+    },
+    holograma: {
+        title: "HOLOGRAMA SKINS",
+        buttons: [
+            { label: "DOWNLOAD HOLOGRAMA", href: "https://sub2unlock.me/HsRIARR" },
+            { label: "TUTORIAL PASSAR NO ENCURTADOR", href: "https://youtube.com/shorts/oQ7ZgoCp4Kg?si=3yxLUdN_eujNtp0A" },
+            { label: "LINK DIRETO AQUI, GO 300 SUBS", href: "https://chat.whatsapp.com/BmpZMLBQjJ2LfOXWSaKz9X?mode=hqrt1" }
+        ]
+    }
+};
+
+/* --- Open modal with chosen menu id --- */
+const modalBack = document.getElementById('modalBack');
+const modalTitle = document.getElementById('modalTitle');
+const modalActions = document.getElementById('modalActions');
+
+function openMenu(menuId){
+    const menu = MENUS[menuId];
+    if(!menu) return;
+    modalTitle.textContent = menu.title;
+    modalActions.innerHTML = ''; // reset
+
+    // create buttons centered and identical style
+    menu.buttons.forEach(b=>{
+        const a = document.createElement('a');
+        a.className = 'link-btn';
+        a.href = b.href || '#';
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = b.label;
+        modalActions.appendChild(a);
+    });
+
+    // show modal
+    modalBack.style.display = 'flex';
+}
+
+/* --- close modal --- */
+function closeMenu(e){
+    if(e) e.stopPropagation?.();
+    modalBack.style.display = 'none';
+}
+
+/* close on Escape */
+document.addEventListener('keydown', (ev)=>{
+    if(ev.key === 'Escape') closeMenu();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Área dos Produtos</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    /* ❄️ Flocos de neve */
+    .snow {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 1em;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0.2;
+      }
+    }
+
+    /* Conteúdo */
+    .content {
+      position: relative;
+      z-index: 5;
+      padding: 80px 15px;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 60px;
+      text-shadow:
+        0 0 10px #ffffff,
+        0 0 25px #ffffff;
+    }
+
+    /* Botões */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .btn {
+      padding: 18px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff0000, #9b0000);
+      border: 2px solid #ff3b3b;
+      box-shadow:
+        0 0 15px #ff0000,
+        0 0 30px #ff0000,
+        inset 0 0 10px #ff4d4d;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow:
+        0 0 25px #ff0000,
+        0 0 55px #ff3333,
+        0 0 80px #ff3333;
+    }
+
+    footer {
+      margin-top: 80px;
+      font-size: 0.85rem;
+      color: #ccc;
+      text-shadow: 0 0 8px #fff;
+    }
+
+    /* 📱 Ajustes mobile */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+
+      .btn {
+        font-size: 1rem;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ❄️ Flocos de neve -->
+  <script>
+    const flakes = 40;
+    for (let i = 0; i < flakes; i++) {
+      const snow = document.createElement("div");
+      snow.className = "snow";
+      snow.innerHTML = "❄";
+      snow.style.left = Math.random() * 100 + "vw";
+      snow.style.animationDuration = (5 + Math.random() * 10) + "s";
+      snow.style.fontSize = (10 + Math.random() * 20) + "px";
+      document.body.appendChild(snow);
+    }
+  </script>
+
+  <!-- Conteúdo -->
+  <div class="content">
+    <h1>PRODUTOS DISPONIVEIS</h1>
+
+    <div class="buttons">
+      <a href="inf.html" class="btn">MODS FREE FIRE</a>
+      <a href="8ball.html" class="btn">MODS 8 BALL POLL</a>
+    </div>
+
+    <footer>© aquilesyt — todos os direitos reservados</footer>
+  </div>
+
+</body>
+</html>
