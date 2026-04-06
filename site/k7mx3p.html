@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — XIT VIP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0d0d0d;color:#e0e0e0;font-family:'Segoe UI',sans-serif;min-height:100vh}
+    .header{
+      background:#111;border-bottom:1px solid #1e1e1e;
+      padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;
+    }
+    .header-left{display:flex;align-items:center;gap:10px}
+    .header-left i{color:#e53935;font-size:1.1rem}
+    .header-left h1{font-size:1rem;font-weight:600;color:#fff;letter-spacing:.5px}
+    .header-left span{font-size:.75rem;color:#666;margin-left:2px}
+    .btn-logout{
+      padding:7px 14px;background:transparent;border:1px solid #333;
+      color:#aaa;border-radius:6px;cursor:pointer;font-size:.8rem;
+      display:flex;align-items:center;gap:6px;transition:.2s;
+    }
+    .btn-logout:hover{border-color:#e53935;color:#e53935}
+    .main{max-width:860px;margin:0 auto;padding:24px 16px}
+    .tabs{display:flex;gap:4px;border-bottom:1px solid #1e1e1e;margin-bottom:20px}
+    .tab{
+      padding:10px 20px;border:none;background:transparent;
+      color:#666;cursor:pointer;font-size:.88rem;border-bottom:2px solid transparent;
+      transition:.2s;display:flex;align-items:center;gap:7px;
+    }
+    .tab.active{color:#fff;border-bottom-color:#e53935}
+    .tab:hover:not(.active){color:#aaa}
+    .badge-cnt{background:#e53935;color:#fff;border-radius:10px;padding:1px 7px;font-size:.7rem;font-weight:700}
+    .subtabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+    .subtab{
+      padding:6px 14px;border-radius:20px;border:1px solid #222;
+      background:transparent;color:#666;cursor:pointer;font-size:.8rem;transition:.2s;
+    }
+    .subtab.active{border-color:#e53935;color:#e53935;background:#1a0000}
+    .subtab:hover:not(.active){color:#aaa;border-color:#333}
+    .section{display:none}
+    .section.active{display:block}
+    .user-card{
+      background:#111;border:1px solid #1a1a1a;border-radius:10px;
+      padding:14px 16px;margin-bottom:8px;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:10px;transition:.15s;
+    }
+    .user-card:hover{border-color:#2a2a2a}
+    .user-left{display:flex;align-items:center;gap:12px;min-width:180px}
+    .color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .user-info strong{font-size:.92rem;color:#fff}
+    .user-info span{display:block;font-size:.75rem;color:#555;margin-top:2px}
+    .status-badge{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:2px 9px;border-radius:12px;font-size:.72rem;font-weight:600;margin-top:4px;
+    }
+    .s-pending {background:#1a1400;color:#f0a500;border:1px solid #7a5200}
+    .s-approved{background:#001a00;color:#2ecc71;border:1px solid #1a6b30}
+    .s-rejected{background:#1a0000;color:#e74c3c;border:1px solid #6b1a1a}
+    .s-blocked {background:#0d0d2a;color:#7289da;border:1px solid #2a2a6b}
+    .actions{display:flex;gap:6px;flex-wrap:wrap}
+    .btn-action{
+      padding:6px 12px;border-radius:6px;border:none;
+      font-size:.78rem;font-weight:600;cursor:pointer;
+      display:flex;align-items:center;gap:5px;transition:.15s;
+    }
+    .btn-approve{background:#1a3a1a;color:#2ecc71;border:1px solid #1a6b30}
+    .btn-approve:hover{background:#2ecc71;color:#000}
+    .btn-block  {background:#0d0d2a;color:#7289da;border:1px solid #2a2a6b}
+    .btn-block:hover{background:#7289da;color:#fff}
+    .btn-unblock{background:#1a1a00;color:#f0a500;border:1px solid #7a5200}
+    .btn-unblock:hover{background:#f0a500;color:#000}
+    .btn-reject {background:#1a0000;color:#e74c3c;border:1px solid #6b1a1a}
+    .btn-reject:hover{background:#e74c3c;color:#fff}
+    .btn-danger {background:#1a0000;color:#e74c3c;border:1px solid #6b1a1a}
+    .btn-danger:hover{background:#e53935;color:#fff}
+    .btn-action:disabled{opacity:.35;cursor:default;pointer-events:none}
+    .msg-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+    .msg-toolbar span{font-size:.8rem;color:#555}
+    .msg-toolbar-btns{display:flex;gap:6px}
+    .btn-refresh{
+      padding:6px 12px;background:#1a1a1a;border:1px solid #2a2a2a;
+      color:#aaa;border-radius:6px;cursor:pointer;font-size:.8rem;
+      display:flex;align-items:center;gap:6px;transition:.2s;
+    }
+    .btn-refresh:hover{border-color:#555;color:#fff}
+    .btn-clear-chat{
+      padding:6px 12px;background:#1a0000;border:1px solid #3a0000;
+      color:#e74c3c;border-radius:6px;cursor:pointer;font-size:.8rem;
+      display:flex;align-items:center;gap:6px;transition:.2s;
+    }
+    .btn-clear-chat:hover{background:#e53935;color:#fff;border-color:#e53935}
+    .msg-card{
+      background:#111;border:1px solid #1a1a1a;border-radius:8px;
+      padding:10px 14px;margin-bottom:6px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+    }
+    .msg-card:hover{border-color:#2a2a2a}
+    .msg-left{flex:1;min-width:0}
+    .msg-user{font-size:.82rem;font-weight:600;margin-bottom:3px}
+    .msg-text{font-size:.85rem;color:#bbb;word-break:break-word;line-height:1.4}
+    .msg-time{font-size:.72rem;color:#444;margin-top:3px}
+    .msg-actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+    .btn-del-msg{
+      padding:5px 8px;background:transparent;border:1px solid #2a0000;
+      color:#e74c3c;border-radius:5px;cursor:pointer;font-size:.75rem;
+      flex-shrink:0;transition:.15s;white-space:nowrap;
+    }
+    .btn-del-msg:hover{background:#e53935;color:#fff;border-color:#e53935}
+    .btn-del-user-msgs{
+      padding:5px 8px;background:transparent;border:1px solid #3a2800;
+      color:#f0a500;border-radius:5px;cursor:pointer;font-size:.75rem;
+      flex-shrink:0;transition:.15s;white-space:nowrap;
+    }
+    .btn-del-user-msgs:hover{background:#f0a500;color:#000;border-color:#f0a500}
+    .color-wrap{position:relative;display:inline-block}
+    .color-circle{
+      width:18px;height:18px;border-radius:50%;cursor:pointer;
+      border:2px solid #333;flex-shrink:0;transition:.15s;
+    }
+    .color-circle:hover{border-color:#aaa;transform:scale(1.15)}
+    .color-palette{
+      display:none;position:absolute;top:24px;left:0;
+      background:#1a1a1a;border:1px solid #333;border-radius:8px;
+      padding:8px;z-index:50;grid-template-columns:repeat(6,20px);gap:4px;
+      box-shadow:0 4px 16px #000;
+    }
+    .color-palette.open{display:grid}
+    .cp-swatch{
+      width:20px;height:20px;border-radius:50%;cursor:pointer;
+      border:2px solid transparent;transition:.1s;
+    }
+    .cp-swatch:hover,.cp-swatch.sel{border-color:#fff;transform:scale(1.15)}
+    .empty{text-align:center;color:#333;padding:40px 0;font-size:.88rem}
+    .empty i{display:block;font-size:2rem;margin-bottom:10px;color:#222}
+    #loading{text-align:center;color:#444;padding:80px 0;font-size:.9rem}
+    #loading i{display:block;font-size:2rem;margin-bottom:12px;color:#333}
+    #auth-err{
+      max-width:400px;margin:80px auto;text-align:center;
+      background:#111;border:1px solid #2a0000;border-radius:12px;padding:32px;display:none;
+    }
+    #auth-err i{font-size:2rem;color:#e53935;margin-bottom:14px}
+    #auth-err h2{color:#fff;margin-bottom:8px;font-size:1.1rem}
+    #auth-err p{color:#666;font-size:.85rem;line-height:1.6}
+    #auth-err a{color:#e53935;text-decoration:none;display:block;margin-top:14px;font-size:.85rem}
+    .modal-overlay{
+      display:none;position:fixed;inset:0;background:#000000cc;
+      z-index:200;align-items:center;justify-content:center;
+    }
+    .modal-overlay.open{display:flex}
+    .modal{
+      background:#111;border:1px solid #2a2a2a;border-radius:12px;
+      padding:28px;max-width:340px;width:90%;text-align:center;
+    }
+    .modal i{font-size:1.8rem;color:#e53935;margin-bottom:12px}
+    .modal h3{color:#fff;margin-bottom:8px;font-size:1rem}
+    .modal p{color:#777;font-size:.85rem;line-height:1.5;margin-bottom:20px}
+    .modal-btns{display:flex;gap:8px;justify-content:center}
+    .modal-btns button{padding:8px 20px;border-radius:7px;border:none;font-size:.85rem;font-weight:600;cursor:pointer}
+    .modal-cancel{background:#1a1a1a;color:#aaa;border:1px solid #333}
+    .modal-cancel:hover{color:#fff}
+    .modal-confirm{background:#e53935;color:#fff}
+    .modal-confirm:hover{background:#c62828}
+  </style>
+</head>
+<body>
+
+<div id="loading"><i class="fa-solid fa-circle-notch fa-spin"></i>Verificando acesso...</div>
+
+<div id="auth-err">
+  <i class="fa-solid fa-lock"></i>
+  <h2>Acesso negado</h2>
+  <p>Voce precisa estar logado com uma conta de administrador.</p>
+  <a href="login.html"><i class="fa-solid fa-arrow-left"></i> Ir para o login</a>
+  <a href="index.html">Voltar ao inicio</a>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <h3 id="modal-title">Confirmar acao</h3>
+    <p id="modal-desc"></p>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="modal-confirm" id="modal-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="header">
+    <div class="header-left">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h1>Admin Panel <span>XIT VIP</span></h1>
+    </div>
+    <button class="btn-logout" onclick="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i> Sair
+    </button>
+  </div>
+  <div class="main">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('users')">
+        <i class="fa-solid fa-users"></i> Usuarios
+        <span class="badge-cnt" id="cnt-pending">0</span>
+      </button>
+      <button class="tab" onclick="switchTab('msgs')">
+        <i class="fa-solid fa-comments"></i> Mensagens
+      </button>
+    </div>
+    <div id="sec-users" class="section active">
+      <div class="subtabs">
+        <button class="subtab active" onclick="switchSub('pending')">Pendentes</button>
+        <button class="subtab" onclick="switchSub('approved')">Aprovados</button>
+        <button class="subtab" onclick="switchSub('blocked')">Bloqueados</button>
+        <button class="subtab" onclick="switchSub('all')">Todos</button>
+      </div>
+      <div id="list-pending"></div>
+      <div id="list-approved" style="display:none"></div>
+      <div id="list-blocked"  style="display:none"></div>
+      <div id="list-all"      style="display:none"></div>
+    </div>
+    <div id="sec-msgs" class="section">
+      <div class="msg-toolbar">
+        <span id="msg-count">—</span>
+        <div class="msg-toolbar-btns">
+          <button class="btn-clear-chat" onclick="confirmClearChat()">
+            <i class="fa-solid fa-trash-can"></i> Limpar chat
+          </button>
+          <button class="btn-refresh" onclick="loadMessages()">
+            <i class="fa-solid fa-rotate-right"></i> Atualizar
+          </button>
+        </div>
+      </div>
+      <div id="list-msgs"></div>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.__ENV.SUPABASE_URL, window.__ENV.SUPABASE_ANON_KEY);
+
+const sid   = parseInt(localStorage.getItem('session_id'));
+const token = localStorage.getItem('session_token');
+let allUsers = [];
+let modalCallback = null;
+let currentSub = 'pending';
+
+const ADMIN_COLORS = [
+  '#ff6b6b','#ff9f43','#ffd32a','#2ecc71','#1abc9c',
+  '#00bcd4','#4fc3f7','#7c4dff','#e040fb','#ff4081',
+  '#a0a0a0','#ffffff'
+];
+
+async function init(){
+  if(!sid || !token){ showErr(); return; }
+  const { data } = await sb.rpc('rpc_verify',{ p_id:sid, p_token:token });
+  if(!data || !data.valid || !data.is_admin){ showErr(); return; }
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  await loadUsers();
+}
+
+function showErr(){
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('auth-err').style.display = 'block';
+}
+
+async function loadUsers(){
+  const { data } = await sb.rpc('rpc_admin_users',{ p_id:sid, p_token:token });
+  allUsers = Array.isArray(data) ? data : [];
+  const pending = allUsers.filter(u => u.status==='pending' && !u.is_blocked);
+  document.getElementById('cnt-pending').textContent = pending.length;
+  renderUsers('pending',  allUsers.filter(u => u.status==='pending' && !u.is_blocked));
+  renderUsers('approved', allUsers.filter(u => u.status==='approved' && !u.is_blocked));
+  renderUsers('blocked',  allUsers.filter(u => u.is_blocked));
+  renderUsers('all',      allUsers);
+}
+
+function renderUsers(type, list){
+  const el = document.getElementById('list-'+type);
+  if(list.length === 0){
+    el.innerHTML = '<div class="empty"><i class="fa-solid fa-inbox"></i>Nenhum usuario aqui.</div>';
+    return;
+  }
+  el.innerHTML = list.map(u => {
+    const color    = u.chat_color || usernameColor(u.username);
+    const date     = new Date(u.created_at).toLocaleDateString('pt-BR');
+    const swatches = ADMIN_COLORS.map(c =>
+      `<div class="cp-swatch${c===color?' sel':''}" style="background:${c}" onclick="setUserColor(${u.id},'${c}',this)"></div>`
+    ).join('');
+    const badge = u.is_blocked
+      ? `<span class="status-badge s-blocked"><i class="fa-solid fa-ban"></i> Bloqueado</span>`
+      : u.status === 'pending'
+      ? `<span class="status-badge s-pending"><i class="fa-regular fa-clock"></i> Pendente</span>`
+      : u.status === 'approved'
+      ? `<span class="status-badge s-approved"><i class="fa-solid fa-check"></i> Aprovado</span>`
+      : `<span class="status-badge s-rejected"><i class="fa-solid fa-xmark"></i> Rejeitado</span>`;
+    const btns = buildBtns(u);
+    return `<div class="user-card" id="uc-${u.id}">
+      <div class="user-left">
+        <div class="color-wrap" id="cw-${u.id}">
+          <div class="color-circle" style="background:${color}" title="Definir cor" onclick="togglePalette(${u.id})"></div>
+          <div class="color-palette" id="cp-${u.id}">${swatches}</div>
+        </div>
+        <div class="user-info">
+          <strong>${esc(u.username)}</strong>
+          <span><i class="fa-regular fa-calendar"></i> ${date}</span>
+          ${badge}
+        </div>
+      </div>
+      <div class="actions" id="ua-${u.id}">${btns}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildBtns(u){
+  if(u.id === sid) return `<span style="font-size:.75rem;color:#444">Voce</span>`;
+  let b = '';
+  if(u.status !== 'approved' && !u.is_blocked)
+    b += btn('btn-approve','fa-check','Aprovar',`doApprove(${u.id})`);
+  if(u.status === 'approved' && !u.is_blocked)
+    b += btn('btn-block','fa-ban','Bloquear',`doBlock(${u.id},true)`);
+  if(u.is_blocked)
+    b += btn('btn-unblock','fa-unlock','Desbloquear',`doBlock(${u.id},false)`);
+  if(u.status !== 'rejected' && !u.is_blocked)
+    b += btn('btn-reject','fa-xmark','Rejeitar',`doReject(${u.id})`);
+  b += btn('btn-danger','fa-trash','Deletar',`confirmDelete(${u.id},'${esc(u.username)}')`);
+  return b;
+}
+
+function btn(cls, icon, label, onclick){
+  return `<button class="btn-action ${cls}" onclick="${onclick}">
+    <i class="fa-solid fa-${icon}"></i> ${label}
+  </button>`;
+}
+
+async function doApprove(id){
+  setBusy(id);
+  await sb.rpc('rpc_admin_status',{ p_id:sid, p_token:token, p_target:id, p_status:'approved' });
+  await loadUsers();
+}
+async function doReject(id){
+  setBusy(id);
+  await sb.rpc('rpc_admin_status',{ p_id:sid, p_token:token, p_target:id, p_status:'rejected' });
+  await loadUsers();
+}
+async function doBlock(id, blocked){
+  setBusy(id);
+  await sb.rpc('rpc_toggle_block',{ p_id:sid, p_token:token, p_target:id, p_blocked:blocked });
+  await loadUsers();
+}
+function confirmDelete(id, name){
+  confirm2(
+    'Deletar usuario',
+    `Tem certeza que deseja deletar <b>${esc(name)}</b>? Esta acao nao pode ser desfeita.`,
+    async () => {
+      setBusy(id);
+      await sb.rpc('rpc_delete_user',{ p_id:sid, p_token:token, p_target:id });
+      await loadUsers();
+    }
+  );
+}
+function setBusy(id){
+  const el = document.getElementById('ua-'+id);
+  if(el) el.innerHTML = '<span style="font-size:.75rem;color:#555">Salvando...</span>';
+}
+
+function togglePalette(uid){
+  document.querySelectorAll('.color-palette').forEach(p => {
+    if(p.id !== 'cp-'+uid) p.classList.remove('open');
+  });
+  document.getElementById('cp-'+uid).classList.toggle('open');
+}
+
+async function setUserColor(uid, color, swatchEl){
+  const palette = swatchEl.closest('.color-palette');
+  palette.querySelectorAll('.cp-swatch').forEach(s => s.classList.remove('sel'));
+  swatchEl.classList.add('sel');
+  palette.previousElementSibling.style.background = color;
+  palette.classList.remove('open');
+  await sb.rpc('rpc_admin_set_color',{ p_id:sid, p_token:token, p_target:uid, p_color:color });
+}
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('.color-wrap')) document.querySelectorAll('.color-palette').forEach(p => p.classList.remove('open'));
+});
+
+async function loadMessages(){
+  const el = document.getElementById('list-msgs');
+  el.innerHTML = '<div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i>Carregando...</div>';
+  const { data } = await sb.rpc('rpc_admin_messages',{ p_id:sid, p_token:token });
+  const msgs = Array.isArray(data) ? data : [];
+  document.getElementById('msg-count').textContent = msgs.length + ' mensagens recentes';
+  if(msgs.length === 0){
+    el.innerHTML = '<div class="empty"><i class="fa-solid fa-comment-slash"></i>Nenhuma mensagem.</div>';
+    return;
+  }
+  el.innerHTML = msgs.map(m => {
+    const color = usernameColor(m.username);
+    const time  = new Date(m.created_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return `<div class="msg-card" id="mc-${m.id}">
+      <div class="msg-left">
+        <div class="msg-user" style="color:${color}">${esc(m.username)}</div>
+        <div class="msg-text">${esc(m.content)}</div>
+        <div class="msg-time">${time}</div>
+      </div>
+      <div class="msg-actions">
+        <button class="btn-del-msg" onclick="deleteMsg(${m.id})" title="Apagar esta mensagem">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button class="btn-del-user-msgs" onclick="confirmDeleteUserMsgs('${esc(m.username)}')" title="Apagar todas de ${esc(m.username)}">
+          <i class="fa-solid fa-broom"></i> Apagar todas
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function deleteMsg(id){
+  const el = document.getElementById('mc-'+id);
+  if(el) el.style.opacity = '.3';
+  await sb.rpc('rpc_delete_message',{ p_id:sid, p_token:token, p_msg_id:id });
+  if(el) el.remove();
+  const count = document.querySelectorAll('.msg-card').length;
+  document.getElementById('msg-count').textContent = count + ' mensagens recentes';
+}
+
+function confirmDeleteUserMsgs(username){
+  confirm2(
+    'Apagar mensagens do usuario',
+    `Apagar <b>todas</b> as mensagens de <b>${esc(username)}</b>? Esta acao nao pode ser desfeita.`,
+    async () => {
+      await sb.rpc('rpc_delete_user_messages',{ p_id:sid, p_token:token, p_username:username });
+      await loadMessages();
+    }
+  );
+}
+
+function confirmClearChat(){
+  confirm2(
+    'Limpar chat completo',
+    'Tem certeza que deseja apagar <b>TODAS</b> as mensagens do chat? Esta acao nao pode ser desfeita.',
+    async () => {
+      const el = document.getElementById('list-msgs');
+      el.innerHTML = '<div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i>Limpando...</div>';
+      await sb.rpc('rpc_clear_chat',{ p_id:sid, p_token:token });
+      await loadMessages();
+    }
+  );
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', ['users','msgs'][i] === tab);
+  });
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  if(tab === 'msgs') loadMessages();
+}
+
+function switchSub(sub){
+  currentSub = sub;
+  document.querySelectorAll('.subtab').forEach((t,i) => {
+    t.classList.toggle('active', ['pending','approved','blocked','all'][i] === sub);
+  });
+  ['pending','approved','blocked','all'].forEach(s => {
+    document.getElementById('list-'+s).style.display = s === sub ? 'block' : 'none';
+  });
+}
+
+function confirm2(title, desc, cb){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').innerHTML = desc;
+  modalCallback = cb;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal-ok').onclick = () => { closeModal(); if(modalCallback) modalCallback(); };
+
+function logout(){
+  localStorage.removeItem('user');
+  localStorage.removeItem('session_id');
+  localStorage.removeItem('session_token');
+  window.location.href = 'login.html';
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function usernameColor(u){
+  let h = 0;
+  for(let i=0;i<u.length;i++) h = u.charCodeAt(i)+((h<<5)-h);
+  return `hsl(${Math.abs(h)%360},60%,65%)`;
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AQUILES YT1</title>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#000;color:#fff;text-align:center;
+    padding:30px 10px;overflow-x:hidden;
+}
+#particles-js{position:fixed;inset:0;z-index:0}
+h1{margin-top:4rem;font-size:2.4rem;z-index:2;position:relative}
+.typed-text{color:#ccc;margin:10px 0 25px;min-height:28px;z-index:2;position:relative}
+.social-buttons{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:12px;max-width:380px;margin:0 auto 25px;z-index:2;position:relative;
+}
+.btn-social{
+    display:block;padding:10px;border:2px solid #ff0000;border-radius:10px;
+    background:#000;color:#fff;text-decoration:none;font-weight:bold;font-size:.85rem;
+    box-shadow:0 0 10px #ff0000,0 0 20px #ff000033;transition:.3s;
+}
+.btn-social:hover{box-shadow:0 0 15px #ff0000,0 0 30px #ff000066;transform:scale(1.02)}
+.btn-full{grid-column:span 2;width:100%}
+.chat-widget{
+    max-width:400px;margin:24px auto;
+    background:linear-gradient(160deg,#0f0f0f,#111);
+    border:1px solid #2a0000;border-radius:16px;
+    box-shadow:0 0 0 1px #ff000022,0 8px 40px #ff000022,0 2px 8px #000;
+    z-index:2;position:relative;overflow:hidden;
+}
+.chat-widget::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,#ff0000,transparent);
+}
+.chat-top{
+    padding:12px 16px 0;
+    display:flex;align-items:center;justify-content:space-between;
+}
+.chat-title{
+    display:flex;align-items:center;gap:8px;
+    font-size:.82rem;font-weight:700;letter-spacing:.5px;color:#fff;text-transform:uppercase;
+}
+.chat-live-dot{
+    width:7px;height:7px;border-radius:50%;background:#ff0000;
+    box-shadow:0 0 6px #ff0000;animation:pulse 1.6s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.chat-info{font-size:.75rem;color:#555;display:flex;align-items:center;gap:6px}
+.chat-messages{
+    height:240px;overflow-y:auto;padding:10px 14px;margin-top:10px;
+    display:flex;flex-direction:column;gap:6px;scroll-behavior:smooth;
+}
+.chat-messages::-webkit-scrollbar{width:3px}
+.chat-messages::-webkit-scrollbar-track{background:transparent}
+.chat-messages::-webkit-scrollbar-thumb{background:#ff000044;border-radius:4px}
+.chat-messages::-webkit-scrollbar-thumb:hover{background:#ff0000}
+.chat-msg{
+    display:flex;align-items:flex-end;gap:7px;
+    animation:msgIn .18s ease;max-width:85%;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.chat-msg.left{align-self:flex-start}
+.chat-msg.right{align-self:flex-end;flex-direction:row-reverse}
+.chat-avatar{
+    width:26px;height:26px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.68rem;font-weight:800;color:#000;
+}
+.chat-msg-body{min-width:0}
+.chat-msg.left  .chat-msg-name{display:block;font-size:.72rem;font-weight:700;margin-bottom:3px}
+.chat-msg.right .chat-msg-name{display:none}
+.chat-msg-time{font-size:.62rem;color:#555;margin-top:3px;display:block}
+.chat-msg.left  .chat-msg-time{text-align:left}
+.chat-msg.right .chat-msg-time{text-align:right}
+.chat-msg-text{
+    font-size:.83rem;line-height:1.45;
+    word-break:break-word;padding:7px 11px;max-width:100%;display:inline-block;
+}
+.chat-msg.left .chat-msg-text{
+    background:#1e1e1e;color:#e0e0e0;
+    border-radius:0 12px 12px 12px;border:1px solid #2a2a2a;
+}
+.chat-msg.right .chat-msg-text{
+    background:#8b0000;color:#fff;
+    border-radius:12px 0 12px 12px;border:1px solid #cc000066;
+}
+.chat-input-area{
+    display:flex;align-items:center;margin:8px 12px 12px;
+    background:#1c1c1c;border:1px solid #3a3a3a;
+    border-radius:24px;overflow:hidden;transition:border-color .2s,box-shadow .2s;
+}
+.chat-input-area:focus-within{border-color:#ff000088;box-shadow:0 0 0 2px #ff000022}
+.chat-input-area input{
+    flex:1;padding:11px 16px;border:none;outline:none;
+    background:transparent;color:#fff;font-size:.88rem;
+    font-family:inherit;caret-color:#ff4444;
+}
+.chat-input-area input::placeholder{color:#666}
+.chat-input-area input:disabled{cursor:not-allowed}
+.chat-input-area input:disabled::placeholder{color:#444}
+.chat-send-btn{
+    width:38px;height:38px;margin:3px;background:#cc0000;border:none;border-radius:50%;
+    color:#fff;cursor:pointer;transition:.2s;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.chat-send-btn:hover:not(:disabled){background:#ff0000;transform:scale(1.05)}
+.chat-send-btn:disabled{background:#2a2a2a;color:#444;cursor:default}
+.chat-send-btn svg{width:15px;height:15px;fill:currentColor;margin-left:2px}
+.chat-empty{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;color:#333;font-size:.82rem;gap:8px;padding:20px 0;
+}
+.chat-empty svg{width:28px;height:28px;fill:#2a2a2a}
+.chat-login-bar{display:flex;align-items:center;gap:6px;margin:8px 12px 12px}
+.chat-fake-input{
+    flex:1;display:flex;align-items:center;gap:8px;
+    background:#141414;border:1px solid #1e1e1e;
+    border-radius:24px;padding:10px 16px;
+    cursor:pointer;transition:.2s;text-decoration:none;
+}
+.chat-fake-input:hover{border-color:#2a2a2a;background:#181818}
+.chat-fake-input i{color:#2d2d2d;font-size:.8rem;flex-shrink:0}
+.chat-fake-input span{font-size:.85rem;color:#2d2d2d;flex:1;text-align:left}
+.clb-login{
+    width:38px;height:38px;flex-shrink:0;background:#1a0000;border:1px solid #3a0000;
+    border-radius:50%;color:#cc0000;
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;transition:.2s;font-size:.82rem;
+}
+.clb-login:hover{background:#cc0000;color:#fff;border-color:#cc0000;box-shadow:0 0 10px #cc000066}
+.chat-user-acts{display:flex;align-items:center;gap:8px}
+.chat-user-acts a{color:#444;text-decoration:none;font-size:.74rem;transition:color .15s}
+.chat-user-acts a:hover{color:#ccc}
+.chat-user-acts a.admin-lnk{color:#e53935}
+.chat-user-acts a.admin-lnk:hover{color:#ff6b6b}
+.chat-counter{font-size:.68rem;color:#444;padding:0 16px 6px;text-align:right;transition:color .2s}
+.chat-counter.warn{color:#f0a500}
+.chat-counter.over{color:#ff4444}
+.categoria{display:flex;justify-content:center;margin-bottom:18px;z-index:2;position:relative}
+.categoria span{
+    padding:9px 18px;border:2px solid #ff0000;border-radius:30px;font-size:.85rem;
+    box-shadow:0 0 10px #ff0000,0 0 25px #ff0000;
+}
+.cards{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:16px;max-width:380px;margin:0 auto 40px;z-index:2;position:relative;
+}
+.card{border:2px solid #ff0000;border-radius:14px;padding:12px;background:#000;box-shadow:0 0 15px #ff0000,0 0 35px #ff000055}
+.card img{width:100%;border-radius:10px}
+.card h3{font-size:.9rem;margin:10px 0}
+.card a{display:block;padding:8px;background:#ff0000;border-radius:8px;font-size:.8rem;text-decoration:none;color:#fff;font-weight:bold}
+footer{font-size:.85rem;margin-top:30px;z-index:2;position:relative}
+</style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<h1 data-aos="fade-down">SEJAM BEM VINDOS AO SITE</h1>
+<div class="typed-text" id="typed-text" data-aos="fade-up"></div>
+
+<div class="social-buttons" data-aos="fade-up">
+    <a href="xits.html" class="btn-social btn-full">XITS GRATIS</a>
+    <a href="https://www.instagram.com/00_dimenor" class="btn-social">INSTAGRAM</a>
+    <a href="https://discord.gg/QkmznQbPm3" class="btn-social">DISCORD OFC</a>
+    <a href="https://whatsapp.com/channel/0029VbBSbEPLo4hdPC2kRm3k" class="btn-social btn-full">CANAL WHATSAPP</a>
+</div>
+
+<div class="chat-widget" data-aos="fade-up">
+    <div class="chat-top">
+        <div class="chat-title">
+            <div class="chat-live-dot"></div>
+            Chat da Comunidade
+        </div>
+        <div class="chat-info" id="chatAlert"></div>
+    </div>
+    <div class="chat-messages" id="chat"></div>
+    <div class="chat-login-bar" id="chatLoginPrompt">
+        <a href="login.html" class="chat-fake-input">
+            <i class="fa-solid fa-lock"></i>
+            <span>Entre para enviar mensagens...</span>
+        </a>
+        <a href="login.html" class="clb-login" title="Entrar">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </a>
+    </div>
+    <div class="chat-input-area" id="chatInputArea" style="display:none">
+        <input type="text" id="msg" placeholder="Mensagem..." disabled maxlength="280">
+        <button class="chat-send-btn" id="sendBtn" onclick="enviar()" disabled>
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+    </div>
+    <div class="chat-counter" id="charCounter" style="display:none">280</div>
+</div>
+
+<div class="categoria" data-aos="fade-up"><span>CATEGORIAS POPULARES</span></div>
+
+<div class="cards">
+    <div class="card"><img src="images/smk.jpg"><h3>SMK CHEATS PC</h3><a href="smk.html">VER</a></div>
+    <div class="card"><img src="images/pato.jpg"><h3>PATO TEAM APK</h3><a href="pato.html">VER</a></div>
+    <div class="card"><img src="images/dripcli.jpg"><h3>DRIP CLIENTE APK</h3><a href="produtos.html">VER</a></div>
+    <div class="card"><img src="images/8ball.jpg"><h3>8 BALL POOL MOD</h3><a href="8ball.html">VER</a></div>
+    <div class="card"><img src="images/brmods.jpg"><h3>BR MODS</h3><a href="loja.html">VER</a></div>
+    <div class="card"><img src="images/assinaturas.jpg"><h3>ASSINATURAS</h3><a href="https://dreamstorex.site/?ref=aquilesyt1" target="_blank">VER</a></div>
+</div>
+
+<footer>🔒 aquilesyt — todos os direitos reservados</footer>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient(window.__ENV.SUPABASE_URL, window.__ENV.SUPABASE_ANON_KEY);
+
+const chat     = document.getElementById('chat');
+const alertBox = document.getElementById('chatAlert');
+const sendBtn  = document.getElementById('sendBtn');
+const msgInput = document.getElementById('msg');
+
+let currentUser = null;
+let chatEnabled = false;
+let myColor     = null;
+let sending     = false;
+let colorMap    = {};
+
+function esc(s){
+    return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+}
+
+function sanitizeMsg(s){
+    return s.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim().slice(0,280);
+}
+
+function usernameColor(u){
+    let h=0;
+    for(let i=0;i<u.length;i++) h=u.charCodeAt(i)+((h<<5)-h);
+    return `hsl(${Math.abs(h)%360},60%,65%)`;
+}
+
+function getColor(username){
+    return colorMap[username] || usernameColor(username);
+}
+
+async function loadColorMap(){
+    const { data, error } = await sb.rpc('rpc_get_colors');
+    if(error || !data) return;
+    if(Array.isArray(data)){
+        data.forEach(r => { if(r.u && r.c) colorMap[r.u] = r.c; });
+    } else if(typeof data === 'object'){
+        Object.assign(colorMap, data);
+    }
+}
+
+function addMsg(username, content){
+    const empty = document.getElementById('chatEmpty');
+    if(empty) empty.remove();
+    const isMe = (username === currentUser);
+    const u    = esc(username || '?');
+    const t    = esc(content  || '');
+    const col  = getColor(username);
+    const ini  = (username || '?')[0].toUpperCase();
+    const now  = new Date();
+    const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    const div  = document.createElement('div');
+    div.className       = 'chat-msg ' + (isMe ? 'right' : 'left');
+    div.dataset.username = username;
+    div.innerHTML = `
+      <div class="chat-avatar" style="background:${isMe ? '#8b0000' : col}">${ini}</div>
+      <div class="chat-msg-body">
+        <span class="chat-msg-name" style="color:${col}">${u}</span>
+        <div class="chat-msg-text">${t}</div>
+        <span class="chat-msg-time">${time}</span>
+      </div>`;
+    chat.appendChild(div);
+    const msgs = chat.querySelectorAll('.chat-msg');
+    if(msgs.length > 60) msgs[0].remove();
+    chat.scrollTop = chat.scrollHeight;
+}
+
+async function carregarMensagens(){
+    const { data } = await sb.from('messages')
+        .select('username,content')
+        .order('created_at',{ ascending:true })
+        .limit(50);
+    if(data) data.forEach(m => addMsg(m.username, m.content));
+}
+
+function subscribeChat(){
+    sb.channel('chat-room')
+      .on('postgres_changes',{ event:'INSERT', schema:'public', table:'messages' }, p => {
+          addMsg(p.new.username, p.new.content);
+      })
+      .subscribe();
+}
+
+async function checkAuth(){
+    const sid   = parseInt(localStorage.getItem('session_id'));
+    const token = localStorage.getItem('session_token');
+    if(!sid || !token){ lockChat('nologin'); return; }
+    const { data } = await sb.rpc('rpc_verify',{ p_id:sid, p_token:token });
+    if(!data || !data.valid){ clearSession(); lockChat('nologin'); return; }
+    if(data.status === 'pending')  { lockChat('Aguardando aprovacao do admin.'); return; }
+    if(data.status === 'rejected') { lockChat('Sua conta foi rejeitada.'); return; }
+    if(data.is_blocked)            { lockChat('Voce foi bloqueado de comentar.'); return; }
+    currentUser = data.username;
+    myColor = data.chat_color || colorMap[currentUser] || usernameColor(currentUser);
+    colorMap[currentUser] = myColor;
+    chat.querySelectorAll('.chat-msg').forEach(el => {
+        const u   = el.dataset.username;
+        const col = getColor(u);
+        const av  = el.querySelector('.chat-avatar');
+        const nm  = el.querySelector('.chat-msg-name');
+        if(av) av.style.background = (u === currentUser) ? '#8b0000' : col;
+        if(nm) nm.style.color      = col;
+    });
+    chatEnabled = true;
+    const liveDot = document.querySelector('.chat-live-dot');
+    if(liveDot){
+        liveDot.style.background = myColor;
+        liveDot.style.boxShadow  = `0 0 6px ${myColor}`;
+    }
+    const adminLink = data.is_admin
+        ? `<a href="k7mx3p.html" class="admin-lnk" title="Admin"><i class="fa-solid fa-shield-halved"></i></a>`
+        : '';
+    alertBox.innerHTML = `
+      <div class="chat-user-acts">
+        ${adminLink}
+        <a href="#" onclick="logout(event)" title="Sair"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+      </div>`;
+    document.getElementById('chatInputArea').style.display = 'flex';
+    document.getElementById('chatLoginPrompt').style.display = 'none';
+    document.getElementById('charCounter').style.display = 'block';
+    msgInput.disabled    = false;
+    sendBtn.disabled     = false;
+    msgInput.placeholder = 'Mensagem...';
+}
+
+function lockChat(reason){
+    document.getElementById('chatInputArea').style.display = 'none';
+    document.getElementById('charCounter').style.display  = 'none';
+    const prompt = document.getElementById('chatLoginPrompt');
+    if(reason === 'nologin'){
+        prompt.style.display = 'flex';
+        alertBox.innerHTML   = '';
+    } else {
+        prompt.style.display = 'none';
+        alertBox.innerHTML   = `<span style="color:#666;font-size:.75rem">${reason}</span>`;
+    }
+}
+
+function clearSession(){
+    localStorage.removeItem('user');
+    localStorage.removeItem('session_id');
+    localStorage.removeItem('session_token');
+}
+
+function logout(e){
+    if(e) e.preventDefault();
+    clearSession();
+    window.location.href = 'login.html';
+}
+
+async function enviar(){
+    if(!chatEnabled || sending) return;
+    const val = sanitizeMsg(msgInput.value);
+    if(!val) return;
+    sending = true;
+    sendBtn.disabled = true;
+    msgInput.value   = '';
+    const sid   = parseInt(localStorage.getItem('session_id'));
+    const token = localStorage.getItem('session_token');
+    await sb.rpc('rpc_send_message',{ p_id:sid, p_token:token, p_content:val });
+    sending = false;
+    sendBtn.disabled = false;
+    msgInput.focus();
+}
+
+msgInput.addEventListener('keydown', e => { if(e.key === 'Enter') enviar(); });
+
+msgInput.addEventListener('input', () => {
+    const left = 280 - msgInput.value.length;
+    const el   = document.getElementById('charCounter');
+    el.textContent = left;
+    el.className   = 'chat-counter' + (left < 20 ? (left < 0 ? ' over' : ' warn') : '');
+    sendBtn.disabled = (left < 0 || !chatEnabled || sending);
+});
+
+loadColorMap().then(() => carregarMensagens());
+subscribeChat();
+checkAuth();
+
+AOS.init({ duration:900, once:true });
+particlesJS('particles-js',{particles:{number:{value:80},color:{value:'#ff0000'},size:{value:3},move:{speed:2}}});
+new Typed('#typed-text',{
+    strings:['A MELHOR LOJA DE VENDAS NO CENARIO','DEZENAS DE CLIENTES SATISFEITOS','SUPORTE 24/7 PARA VOCE','PLANOS ACESSIVEIS PARA TODOS'],
+    typeSpeed:30,backSpeed:30,loop:true
+});
+</script>
+
+</body>
+</html>

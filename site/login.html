@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — XIT VIP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background:#060606;color:#fff;font-family:'Segoe UI',sans-serif;
+      min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:linear-gradient(#ff000008 1px,transparent 1px),linear-gradient(90deg,#ff000008 1px,transparent 1px);
+      background-size:40px 40px;pointer-events:none;
+    }
+    .card{
+      width:100%;max-width:360px;background:#0f0f0f;border:1px solid #1e1e1e;
+      border-radius:18px;padding:36px 32px;
+      box-shadow:0 0 0 1px #ff000015,0 24px 60px #000;position:relative;
+    }
+    .card::before{
+      content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
+      background:linear-gradient(90deg,transparent,#ff0000,transparent);border-radius:1px;
+    }
+    .brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px}
+    .brand-icon{
+      width:40px;height:40px;background:#1a0000;border:1px solid #ff000044;
+      border-radius:10px;display:flex;align-items:center;justify-content:center;
+      color:#ff0000;font-size:1rem;
+    }
+    .brand-name{font-size:1.1rem;font-weight:800;letter-spacing:.5px}
+    .brand-name span{color:#ff0000}
+    h2{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+    .sub{font-size:.82rem;color:#555;margin-bottom:24px}
+    .field{margin-bottom:14px}
+    .field label{
+      display:block;font-size:.75rem;font-weight:600;
+      color:#666;letter-spacing:.4px;margin-bottom:6px;text-transform:uppercase;
+    }
+    .input-wrap{
+      display:flex;align-items:center;background:#141414;border:1px solid #222;
+      border-radius:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s;
+    }
+    .input-wrap:focus-within{border-color:#ff000066;box-shadow:0 0 0 2px #ff000018}
+    .input-wrap i{padding:0 12px;color:#444;font-size:.85rem;flex-shrink:0}
+    .input-wrap input{
+      flex:1;padding:12px 12px 12px 0;border:none;outline:none;
+      background:transparent;color:#fff;font-size:.9rem;font-family:inherit;
+    }
+    .input-wrap input::placeholder{color:#333}
+    .btn-submit{
+      width:100%;padding:13px;margin-top:6px;
+      background:linear-gradient(135deg,#cc0000,#990000);
+      color:#fff;border:none;border-radius:10px;font-size:.92rem;font-weight:700;
+      cursor:pointer;transition:.2s;letter-spacing:.3px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .btn-submit:hover{background:linear-gradient(135deg,#ff0000,#cc0000);transform:translateY(-1px)}
+    .btn-submit:disabled{background:#1a1a1a;color:#444;cursor:default;transform:none}
+    .msg{padding:10px 12px;border-radius:8px;margin-bottom:14px;font-size:.83rem;line-height:1.5;display:none}
+    .msg.error  {background:#1a0000;color:#ff4444;border:1px solid #3a0000;display:block}
+    .msg.warning{background:#1a1200;color:#f0a500;border:1px solid #3a2800;display:block}
+    .msg.info   {background:#141414;color:#777;border:1px solid #222;display:block}
+    .divider{display:flex;align-items:center;gap:10px;margin:20px 0;color:#333;font-size:.75rem}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:#1e1e1e}
+    .links{display:flex;flex-direction:column;gap:8px;text-align:center}
+    .links a{
+      font-size:.82rem;color:#555;text-decoration:none;padding:10px;
+      border-radius:8px;border:1px solid #1a1a1a;transition:.2s;
+      display:flex;align-items:center;justify-content:center;gap:7px;
+    }
+    .links a:hover{color:#fff;border-color:#333}
+    .links a i{font-size:.8rem}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand-name">XIT <span>VIP</span></div>
+    </div>
+    <h2>Bem vindo de volta</h2>
+    <p class="sub">Acesse sua conta para continuar</p>
+    <div id="msg" class="msg"></div>
+    <div class="field">
+      <label>Usuario</label>
+      <div class="input-wrap">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="username" placeholder="Seu nome de usuario" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <div class="input-wrap">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password" placeholder="Sua senha"/>
+      </div>
+    </div>
+    <button class="btn-submit" id="btn" onclick="entrar()">
+      <i class="fa-solid fa-right-to-bracket"></i> Entrar
+    </button>
+    <div class="divider">ou</div>
+    <div class="links">
+      <a href="register.html"><i class="fa-solid fa-user-plus"></i> Criar nova conta</a>
+      <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar ao inicio</a>
+    </div>
+  </div>
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(window.__ENV.SUPABASE_URL, window.__ENV.SUPABASE_ANON_KEY);
+    async function sha256(str){
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+    function show(text,cls){
+      const el = document.getElementById('msg');
+      el.innerHTML = text; el.className = 'msg ' + cls;
+    }
+    const _sid = localStorage.getItem('session_id');
+    const _tok = localStorage.getItem('session_token');
+    if(_sid && _tok){
+      sb.rpc('rpc_verify',{p_id:parseInt(_sid),p_token:_tok}).then(({data})=>{
+        if(data && data.valid && data.status === 'approved') window.location.href = 'index.html';
+      });
+    }
+    async function entrar(){
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      if(!username || !password){ show('Preencha todos os campos.','error'); return; }
+      const btn = document.getElementById('btn');
+      btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
+      show('Verificando...','info');
+      const hash = await sha256(password);
+      const { data, error } = await sb.rpc('rpc_login',{p_username:username,p_hash:hash});
+      if(error || !data || data.error === 'invalid'){
+        show('Nome ou senha incorretos.','error');
+        btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Entrar'; return;
+      }
+      if(data.status === 'pending'){
+        show('Sua conta esta <b>aguardando aprovacao</b> do admin.','warning');
+        btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Entrar'; return;
+      }
+      if(data.status === 'rejected'){
+        show('Sua conta foi <b>rejeitada</b>. Entre em contato com o suporte.','error');
+        btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Entrar'; return;
+      }
+      localStorage.setItem('user', data.username);
+      localStorage.setItem('session_id', data.id);
+      localStorage.setItem('session_token', data.token);
+      window.location.href = 'index.html';
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Enter') entrar(); });
+  </script>
+</body>
+</html>

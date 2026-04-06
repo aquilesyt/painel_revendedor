@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SMK CHEATS PC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* EFEITO DE NEVE */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 1;
+            user-select: none;
+            cursor: default;
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px #fff;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* HEADER */
+        .header {
+            z-index: 10;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            text-shadow: 0 0 20px #00d4ff, 0 0 40px #0099ff;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px #00d4ff, 0 0 40px #0099ff;
+            }
+            50% {
+                text-shadow: 0 0 30px #00d4ff, 0 0 60px #0099ff, 0 0 80px #00d4ff;
+            }
+        }
+
+        .header p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* CARROSSEL */
+        .carousel-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            border: 3px solid #00d4ff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px #00d4ff, 0 0 60px #0099ff;
+            z-index: 10;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            padding-bottom: 50%;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid #00d4ff;
+        }
+
+        .carousel-dot.active {
+            background: #00d4ff;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        /* CARDS CONTAINER */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* CARDS */
+        .card {
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 15px #00d4ff, 0 0 30px #0099ff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translate(-100%, -100%);
+            }
+            100% {
+                transform: translate(100%, 100%);
+            }
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px #00d4ff, 0 0 50px #0099ff;
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #00d4ff;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: #00d4ff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+
+        .card-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #00d4ff;
+            font-size: 0.9rem;
+        }
+
+        .card-btn:hover {
+            box-shadow: 0 0 20px #00d4ff, 0 0 30px #0099ff;
+            transform: scale(1.05);
+        }
+
+        /* MODAL SUBMENU */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #000;
+            border: 3px solid #00d4ff;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 0 40px #00d4ff, 0 0 80px #0099ff;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: #00d4ff;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+
+        .modal-content p {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-adquirir {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .btn-adquirir:hover {
+            box-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000;
+            transform: scale(1.05);
+        }
+
+        .btn-fechar {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-fechar:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* CONTATOS SUBMENU */
+        .contatos-container {
+            display: none;
+            margin-top: 20px;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .contatos-container.active {
+            display: flex;
+        }
+
+        .contato-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        .contato-btn:hover {
+            box-shadow: 0 0 20px #00d4ff, 0 0 30px #0099ff;
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .cards-container {
+                max-width: 100%;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card-image {
+                height: 120px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .carousel-container {
+                max-width: 100%;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            .card-image {
+                height: 100px;
+            }
+
+            .card h3 {
+                font-size: 1rem;
+            }
+
+            .card-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                padding: 15px;
+                max-width: 90%;
+            }
+
+            .modal-content h2 {
+                font-size: 1.1rem;
+            }
+
+            .modal-content p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>SMK CHEATS PC</h1>
+        <p>Escolha seu plano e comece agora!</p>
+    </div>
+
+    <!-- CARROSSEL -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-slide active">
+                <img src="images/smk-carousel-1.jpg" alt="SMK Cheats 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/smk-carousel-2.jpg" alt="SMK Cheats 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/smk-carousel-3.jpg" alt="SMK Cheats 3">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/smk-carousel-4.jpg" alt="SMK Cheats 4">
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+            <div class="carousel-dot" onclick="goToSlide(1)"></div>
+            <div class="carousel-dot" onclick="goToSlide(2)"></div>
+            <div class="carousel-dot" onclick="goToSlide(3)"></div>
+        </div>
+    </div>
+
+    <!-- CARDS DE PRODUTOS -->
+    <div class="cards-container">
+        <!-- CARD 1 DIA -->
+        <div class="card">
+            <img src="images/smk-1dia.jpg" alt="SMK 1 Dia" class="card-image">
+            <h3>SMK 1 DIA</h3>
+            <button class="card-btn" onclick="openModal('modal1')">VER</button>
+        </div>
+
+        <!-- CARD 3 DIAS -->
+        <div class="card">
+            <img src="images/smk-1dia.jpg" alt="SMK 3 Dias" class="card-image">
+            <h3>SMK 3 DIAS</h3>
+            <button class="card-btn" onclick="openModal('modal3')">VER</button>
+        </div>
+
+        <!-- CARD 7 DIAS -->
+        <div class="card">
+            <img src="images/smk-1dia.jpg" alt="SMK 7 Dias" class="card-image">
+            <h3>SMK 7 DIAS</h3>
+            <button class="card-btn" onclick="openModal('modal7')">VER</button>
+        </div>
+
+        <!-- CARD 30 DIAS -->
+        <div class="card">
+            <img src="images/smk-1dia.jpg" alt="SMK 30 Dias" class="card-image">
+            <h3>SMK 30 DIAS</h3>
+            <button class="card-btn" onclick="openModal('modal30')">VER</button>
+        </div>
+    </div>
+
+    <!-- MODAIS -->
+
+    <!-- MODAL 1 DIA -->
+    <div class="modal" id="modal1" onclick="closeModal('modal1', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2>SMK 1 DIA</h2>
+            <p>1 DIA = VALOR: 10R$</p>
+            <div class="modal-buttons">
+                <button class="btn-adquirir" onclick="toggleContatos('contatos1')">ADQUIRIR</button>
+                <button class="btn-fechar" onclick="closeModal('modal1')">FECHAR</button>
+            </div>
+            <div class="contatos-container" id="contatos1">
+                <a href="https://wa.me/5571999775415?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%201%20DIA%20(10R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">📲 WhatsApp</a>
+                <a href="https://t.me/six6nine94?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%201%20DIA%20(10R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">✈️ Telegram</a>
+                <a href="https://instagram.com/00_dimenor" target="_blank" class="contato-btn">📸 Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3 DIAS -->
+    <div class="modal" id="modal3" onclick="closeModal('modal3', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2>SMK 3 DIAS</h2>
+            <p>3 DIAS = VALOR: 20R$</p>
+            <div class="modal-buttons">
+                <button class="btn-adquirir" onclick="toggleContatos('contatos3')">ADQUIRIR</button>
+                <button class="btn-fechar" onclick="closeModal('modal3')">FECHAR</button>
+            </div>
+            <div class="contatos-container" id="contatos3">
+                <a href="https://wa.me/5571999775415?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%203%20DIAS%20(20R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">📲 WhatsApp</a>
+                <a href="https://t.me/six6nine94?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%203%20DIAS%20(20R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">✈️ Telegram</a>
+                <a href="https://instagram.com/00_dimenor" target="_blank" class="contato-btn">📸 Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 7 DIAS -->
+    <div class="modal" id="modal7" onclick="closeModal('modal7', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2>SMK 7 DIAS</h2>
+            <p>7 DIAS = VALOR: 45R$</p>
+            <div class="modal-buttons">
+                <button class="btn-adquirir" onclick="toggleContatos('contatos7')">ADQUIRIR</button>
+                <button class="btn-fechar" onclick="closeModal('modal7')">FECHAR</button>
+            </div>
+            <div class="contatos-container" id="contatos7">
+                <a href="https://wa.me/5571999775415?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%207%20DIAS%20(45R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">📲 WhatsApp</a>
+                <a href="https://t.me/six6nine94?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%207%20DIAS%20(45R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">✈️ Telegram</a>
+                <a href="https://instagram.com/00_dimenor" target="_blank" class="contato-btn">📸 Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 30 DIAS -->
+    <div class="modal" id="modal30" onclick="closeModal('modal30', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2>SMK 30 DIAS</h2>
+            <p>30 DIAS = VALOR: 85R$</p>
+            <div class="modal-buttons">
+                <button class="btn-adquirir" onclick="toggleContatos('contatos30')">ADQUIRIR</button>
+                <button class="btn-fechar" onclick="closeModal('modal30')">FECHAR</button>
+            </div>
+            <div class="contatos-container" id="contatos30">
+                <a href="https://wa.me/5571999775415?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%2030%20DIAS%20(85R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">📲 WhatsApp</a>
+                <a href="https://t.me/six6nine94?text=VIM%20PELO%20SITE,%20QUERO%20ADQUIRIR%20O%20PLANO%2030%20DIAS%20(85R$)%20SMK%20CHEATS%20PC!" target="_blank" class="contato-btn">✈️ Telegram</a>
+                <a href="https://instagram.com/00_dimenor" target="_blank" class="contato-btn">📸 Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        // EFEITO DE NEVE
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+            snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => snowflake.remove(), 20000);
+        }
+
+        setInterval(createSnowflake, 300);
+
+        // CARROSSEL
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+            });
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Auto-avançar carrossel
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 4;
+            updateCarousel();
+        }, 5000);
+
+        // MODAIS
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId, event) {
+            if (event && event.target.id !== modalId) return;
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            const contatosId = 'contatos' + modalId.replace('modal', '');
+            const contatos = document.getElementById(contatosId);
+            if (contatos) {
+                contatos.classList.remove('active');
+            }
+        }
+
+        function toggleContatos(contatosId) {
+            document.getElementById(contatosId).classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
