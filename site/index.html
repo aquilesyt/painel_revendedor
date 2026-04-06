@@ -202,12 +202,12 @@ footer{font-size:.85rem;margin-top:30px;z-index:2;position:relative}
 <div class="categoria" data-aos="fade-up"><span>CATEGORIAS POPULARES</span></div>
 
 <div class="cards">
-    <div class="card"><img src="images/smk.jpg"><h3>SMK CHEATS PC</h3><a href="smk.html">VER</a></div>
-    <div class="card"><img src="images/pato.jpg"><h3>PATO TEAM APK</h3><a href="pato.html">VER</a></div>
-    <div class="card"><img src="images/dripcli.jpg"><h3>DRIP CLIENTE APK</h3><a href="produtos.html">VER</a></div>
-    <div class="card"><img src="images/8ball.jpg"><h3>8 BALL POOL MOD</h3><a href="8ball.html">VER</a></div>
-    <div class="card"><img src="images/brmods.jpg"><h3>BR MODS</h3><a href="loja.html">VER</a></div>
-    <div class="card"><img src="images/assinaturas.jpg"><h3>ASSINATURAS</h3><a href="https://dreamstorex.site/?ref=aquilesyt1" target="_blank">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="0"><img src="images/smk.jpg"><h3>SMK CHEATS PC</h3><a href="smk.html">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="80"><img src="images/pato.jpg"><h3>PATO TEAM APK</h3><a href="pato.html">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="160"><img src="images/dripcli.jpg"><h3>DRIP CLIENTE APK</h3><a href="produtos.html">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="240"><img src="images/8ball.jpg"><h3>8 BALL POOL MOD</h3><a href="8ball.html">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="320"><img src="images/brmods.jpg"><h3>BR MODS</h3><a href="loja.html">VER</a></div>
+    <div class="card" data-aos="fade-up" data-aos-delay="400"><img src="images/assinaturas.jpg"><h3>ASSINATURAS</h3><a href="https://dreamstorex.site/?ref=aquilesyt1" target="_blank">VER</a></div>
 </div>
 
 <footer>🔒 aquilesyt — todos os direitos reservados</footer>
@@ -383,7 +383,15 @@ async function enviar(){
     msgInput.value   = '';
     const sid   = parseInt(localStorage.getItem('session_id'));
     const token = localStorage.getItem('session_token');
-    await sb.rpc('rpc_send_message',{ p_id:sid, p_token:token, p_content:val });
+    const { data } = await sb.rpc('rpc_send_message',{ p_id:sid, p_token:token, p_content:val });
+    if(data && data.error === 'rate_limit'){
+        msgInput.value = val;
+        const el = document.getElementById('charCounter');
+        const prev = el.textContent;
+        el.textContent = 'Devagar...';
+        el.style.color = '#f0a500';
+        setTimeout(() => { el.textContent = prev; el.style.color = ''; }, 2000);
+    }
     sending = false;
     sendBtn.disabled = false;
     msgInput.focus();
@@ -403,7 +411,7 @@ loadColorMap().then(() => carregarMensagens());
 subscribeChat();
 checkAuth();
 
-AOS.init({ duration:900, once:true });
+AOS.init({ duration:700, once:true, offset:60 });
 particlesJS('particles-js',{particles:{number:{value:80},color:{value:'#ff0000'},size:{value:3},move:{speed:2}}});
 new Typed('#typed-text',{
     strings:['A MELHOR LOJA DE VENDAS NO CENARIO','DEZENAS DE CLIENTES SATISFEITOS','SUPORTE 24/7 PARA VOCE','PLANOS ACESSIVEIS PARA TODOS'],
