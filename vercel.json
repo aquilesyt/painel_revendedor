@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node build.js",
+  "buildCommand": "printf 'window.__ENV={SUPABASE_URL:\"%s\",SUPABASE_ANON_KEY:\"%s\"}' \"$SUPABASE_URL\" \"$SUPABASE_ANON_KEY\" > site/config.js",
   "outputDirectory": "site",
-  "installCommand": "echo skip"
+  "installCommand": "echo ok"
 }
