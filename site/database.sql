@@ -100,6 +100,9 @@ begin
   if not found then return json_build_object('error','unauthorized'); end if;
   if length(trim(p_content)) = 0   then return json_build_object('error','empty'); end if;
   if length(trim(p_content)) > 280 then return json_build_object('error','too_long'); end if;
+  if exists (
+    select 1 from public.messages where user_id = v.id and created_at > now() - interval '3 seconds'
+  ) then return json_build_object('error','rate_limit'); end if;
   insert into public.messages (user_id, username, content) values (v.id, v.username, trim(p_content));
   return json_build_object('ok',true);
 end; $$;
@@ -237,5 +240,3 @@ grant execute on function public.rpc_admin_set_color(bigint,text,bigint,text) to
 
 notify pgrst, 'reload schema';
 
--- Apos criar sua conta, rode isso separado para virar admin:
--- update public.users set is_admin=true, status='approved' where username='SEU_NOME';
